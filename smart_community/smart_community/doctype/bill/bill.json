@@ -1,0 +1,160 @@
+{
+ "actions": [],
+ "allow_auto_repeat": 1,
+ "allow_rename": 1,
+ "autoname": "Bill-.###",
+ "creation": "2025-09-04 17:24:28.744931",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "bill_details_section",
+  "resident",
+  "billing_month",
+  "due_date",
+  "column_break_snlf",
+  "billing_year",
+  "late_fee_per_day",
+  "status",
+  "days_late",
+  "late_fee_amount",
+  "section_break_ecmx",
+  "consumption_details_column",
+  "items",
+  "section_break_vmxy",
+  "column_break_woru",
+  "column_break_gjec",
+  "total_with_late",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "resident",
+   "fieldtype": "Link",
+   "in_filter": 1,
+   "label": "Resident",
+   "options": "Resident"
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "Unpaid",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "\nPaid\nUnpaid"
+  },
+  {
+   "fieldname": "billing_month",
+   "fieldtype": "Select",
+   "in_filter": 1,
+   "label": "Billing Month",
+   "options": "January\nFebruary\nMarch\nApril\nMay\nJune\nJuly\nAugust\nSeptember\nOctober\nNovember\nDecember"
+  },
+  {
+   "fieldname": "billing_year",
+   "fieldtype": "Int",
+   "label": "Billing Year"
+  },
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Items",
+   "options": "Bill Item"
+  },
+  {
+   "fieldname": "due_date",
+   "fieldtype": "Date",
+   "label": "Due Date"
+  },
+  {
+   "fieldname": "late_fee_per_day",
+   "fieldtype": "Currency",
+   "label": "Late Fee per Day"
+  },
+  {
+   "fieldname": "days_late",
+   "fieldtype": "Int",
+   "label": "Days Late"
+  },
+  {
+   "fieldname": "late_fee_amount",
+   "fieldtype": "Currency",
+   "label": "Late Fee Amount"
+  },
+  {
+   "fieldname": "total_with_late",
+   "fieldtype": "Currency",
+   "label": "Total Amount with Late"
+  },
+  {
+   "fieldname": "section_break_ecmx",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "section_break_vmxy",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_woru",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_gjec",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_snlf",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "bill_details_section",
+   "fieldtype": "Section Break",
+   "label": "Bill Details"
+  },
+  {
+   "fieldname": "consumption_details_column",
+   "fieldtype": "Column Break",
+   "label": "Consumption Details"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Bill",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2025-09-20 12:15:04.267759",
+ "modified_by": "Administrator",
+ "module": "Smart Community",
+ "name": "Bill",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

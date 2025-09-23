@@ -1,0 +1,54 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "BI-.##",
+ "creation": "2025-09-06 12:28:42.895756",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "consumption_overview_section",
+  "consumption_log",
+  "column_break_hknu",
+  "amount"
+ ],
+ "fields": [
+  {
+   "fieldname": "consumption_log",
+   "fieldtype": "Link",
+   "label": "Consumption Log",
+   "options": "Consumption Log"
+  },
+  {
+   "fetch_from": "consumption_log.total_amount",
+   "fieldname": "amount",
+   "fieldtype": "Data",
+   "label": "Amount",
+   "options": "Consumption Log"
+  },
+  {
+   "fieldname": "consumption_overview_section",
+   "fieldtype": "Section Break",
+   "label": "Consumption Overview"
+  },
+  {
+   "fieldname": "column_break_hknu",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-09-11 19:50:22.946036",
+ "modified_by": "Administrator",
+ "module": "Smart Community",
+ "name": "Bill Item",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

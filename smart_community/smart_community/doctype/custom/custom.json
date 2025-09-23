@@ -1,0 +1,157 @@
+{
+ "actions": [
+  {
+   "action": "/",
+   "action_type": "Route",
+   "label": "Home"
+  }
+ ],
+ "allow_auto_repeat": 1,
+ "allow_events_in_timeline": 1,
+ "allow_import": 1,
+ "allow_rename": 1,
+ "autoname": "Custom-.###",
+ "beta": 1,
+ "creation": "2025-09-16 13:04:55.594314",
+ "default_view": "List",
+ "doctype": "DocType",
+ "email_append_to": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "email_details_section",
+  "sender_name",
+  "subject",
+  "duration",
+  "column_break_mdml",
+  "sender_email",
+  "recipient_email",
+  "html_editor_section",
+  "message_content",
+  "example",
+  "consumption_log_section",
+  "log"
+ ],
+ "fields": [
+  {
+   "fieldname": "email_details_section",
+   "fieldtype": "Section Break",
+   "label": "Email Details"
+  },
+  {
+   "documentation_url": "http://smart.localhost:8001/app/users",
+   "fieldname": "sender_name",
+   "fieldtype": "Data",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "label": "Sender Name",
+   "placeholder": "Sender Name",
+   "reqd": 1,
+   "translatable": 1
+  },
+  {
+   "fieldname": "subject",
+   "fieldtype": "Data",
+   "label": "Subject",
+   "placeholder": "Subject"
+  },
+  {
+   "fieldname": "duration",
+   "fieldtype": "Duration",
+   "label": "Duration",
+   "placeholder": "Duration"
+  },
+  {
+   "allow_bulk_edit": 1,
+   "fieldname": "log",
+   "fieldtype": "Table",
+   "label": "Log",
+   "options": "Consumption Log Item"
+  },
+  {
+   "fieldname": "column_break_mdml",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "sender_email",
+   "fieldtype": "Data",
+   "ignore_user_permissions": 1,
+   "label": "Sender Email",
+   "mandatory_depends_on": "sender_email",
+   "options": "Email",
+   "placeholder": "Sender Email",
+   "translatable": 1
+  },
+  {
+   "fieldname": "recipient_email",
+   "fieldtype": "Data",
+   "label": "Recipient Email",
+   "mandatory_depends_on": "sender_email",
+   "placeholder": "Recipient Email"
+  },
+  {
+   "fieldname": "example",
+   "fieldtype": "HTML Editor",
+   "ignore_xss_filter": 1,
+   "label": "Example"
+  },
+  {
+   "fieldname": "message_content",
+   "fieldtype": "Text Editor",
+   "label": "Message Content"
+  },
+  {
+   "fieldname": "html_editor_section",
+   "fieldtype": "Section Break",
+   "label": "Html Editor"
+  },
+  {
+   "fieldname": "consumption_log_section",
+   "fieldtype": "Section Break",
+   "label": "Consumption Log"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [
+  {
+   "link_doctype": "Consumption Log",
+   "link_fieldname": "resident"
+  }
+ ],
+ "make_attachments_public": 1,
+ "max_attachments": 2,
+ "modified": "2025-09-20 17:18:26.753597",
+ "modified_by": "Administrator",
+ "module": "Smart Community",
+ "name": "Custom",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "protect_attached_files": 1,
+ "quick_entry": 1,
+ "recipient_account_field": "recipient_email",
+ "row_format": "Dynamic",
+ "sender_field": "sender_email",
+ "sender_name_field": "sender_name",
+ "show_preview_popup": 1,
+ "sort_field": "creation",
+ "sort_order": "ASC",
+ "states": [],
+ "subject_field": "subject",
+ "track_changes": 1,
+ "track_seen": 1,
+ "track_views": 1
+}

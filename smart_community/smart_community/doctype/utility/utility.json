@@ -1,0 +1,74 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:provider",
+ "creation": "2025-09-03 15:24:44.451586",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "price_list_section",
+  "provider",
+  "utility_type",
+  "column_break_qsnn",
+  "rate"
+ ],
+ "fields": [
+  {
+   "fieldname": "utility_type",
+   "fieldtype": "Select",
+   "label": "Utility Type",
+   "options": "\nWater\nElectricity\nInternet\nGym"
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "fieldname": "rate",
+   "fieldtype": "Currency",
+   "label": "Rate"
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "fieldname": "provider",
+   "fieldtype": "Data",
+   "label": "Provider",
+   "unique": 1
+  },
+  {
+   "fieldname": "price_list_section",
+   "fieldtype": "Section Break",
+   "label": "Price List"
+  },
+  {
+   "fieldname": "column_break_qsnn",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-09-11 19:26:53.527578",
+ "modified_by": "Administrator",
+ "module": "Smart Community",
+ "name": "Utility",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

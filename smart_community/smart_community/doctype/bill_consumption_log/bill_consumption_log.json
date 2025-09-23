@@ -1,0 +1,65 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "Bill Consumption -.###",
+ "creation": "2025-09-04 19:01:24.129530",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "monthly_consumption_section",
+  "consumption_log",
+  "utility",
+  "column_break_zmne",
+  "units_consumed",
+  "amount"
+ ],
+ "fields": [
+  {
+   "fieldname": "consumption_log",
+   "fieldtype": "Link",
+   "label": "Consumption Log",
+   "options": "Consumption Log"
+  },
+  {
+   "fieldname": "utility",
+   "fieldtype": "Link",
+   "label": "Utility",
+   "options": "Utility"
+  },
+  {
+   "fieldname": "column_break_zmne",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "units_consumed",
+   "fieldtype": "Float",
+   "label": "Units Consumed"
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "label": "Amount"
+  },
+  {
+   "fieldname": "monthly_consumption_section",
+   "fieldtype": "Section Break",
+   "label": "Monthly Consumption "
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-09-11 19:49:47.176174",
+ "modified_by": "Administrator",
+ "module": "Smart Community",
+ "name": "Bill Consumption Log",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

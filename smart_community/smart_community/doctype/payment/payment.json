@@ -1,0 +1,89 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "Payment-.##",
+ "creation": "2025-09-06 12:58:35.269554",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "payment_details_section",
+  "bill",
+  "payment_mode",
+  "status",
+  "column_break_ehyg",
+  "date",
+  "payment_id",
+  "amount"
+ ],
+ "fields": [
+  {
+   "fieldname": "bill",
+   "fieldtype": "Link",
+   "label": "Bill",
+   "options": "Bill"
+  },
+  {
+   "fieldname": "payment_mode",
+   "fieldtype": "Select",
+   "label": "Payment Mode",
+   "options": "\nUPI\nRazorpay\nBank\nCash"
+  },
+  {
+   "fieldname": "column_break_ehyg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "label": "Amount"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "\nInitiated\nCompleted\nFailed"
+  },
+  {
+   "fieldname": "payment_id",
+   "fieldtype": "Data",
+   "label": "Payment Id"
+  },
+  {
+   "fieldname": "payment_details_section",
+   "fieldtype": "Section Break",
+   "label": "Payment Details"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-09-11 19:51:03.754053",
+ "modified_by": "Administrator",
+ "module": "Smart Community",
+ "name": "Payment",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

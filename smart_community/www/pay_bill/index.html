@@ -1,0 +1,161 @@
+{% extends "templates/web.html" %}
+
+{% block page_content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+
+<style>
+    body {
+        background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .container {
+        max-width: 900px;
+        margin: 20px auto;
+        padding: 0 15px;
+    }
+    .card {
+        padding: 25px;
+        border-radius: 15px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        background: #ffffff;
+    }
+    h2 {
+        text-align: center;
+        color: #007BFF;
+        margin-bottom: 20px;
+        font-weight: bold;
+    }
+    .bill-details p {
+        margin: 5px 0;
+        font-size: 16px;
+    }
+    .bill-items table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+    }
+    .bill-items th, .bill-items td {
+        padding: 10px;
+        border: 1px solid #ddd;
+        text-align: center;
+        font-size: 15px;
+    }
+    .bill-items th {
+        background: #007BFF;
+        color: white;
+        font-weight: 600;
+    }
+    .bill-items tbody tr:nth-child(even) {
+        background: #f1f8ff;
+    }
+    .bill-items tbody tr:hover {
+        background: #cce5ff;
+        transition: 0.3s;
+    }
+    #rzp-button {
+        display: block;
+        margin: 25px auto 0 auto;
+        padding: 15px 35px;
+        background: linear-gradient(135deg, #007BFF, #00C6FF);
+        color: white;
+        border: none;
+        border-radius: 50px;
+        font-size: 18px;
+        cursor: pointer;
+        box-shadow: 0 6px 15px rgba(0,123,255,0.3);
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+    #rzp-button:hover {
+        transform: scale(1.05);
+        box-shadow: 0 10px 20px rgba(0,123,255,0.4);
+    }
+</style>
+
+<div class="container">
+    <div class="card animate__animated animate__fadeInDown wow" data-wow-duration="1s" data-wow-delay="0.2s">
+        <h2>Pay Your Bill</h2>
+        
+        <div class="bill-details wow animate__fadeIn" data-wow-duration="1s" data-wow-delay="0.3s">
+            <p><strong>Bill Name:</strong> {{ bill.name }}</p>
+            <p><strong>Resident:</strong> {{ bill.resident or 'N/A' }}</p>
+            <p><strong>Total Amount:</strong> {{ frappe.format_value(bill.total_with_late , {"fieldtype": "Currency"}) }}</p>
+            <p><strong>Status:</strong> 
+                <span style="color:{{ 'green' if bill.status=='Paid' else 'red' }}">{{ bill.status }}</span>
+            </p>
+        </div>
+
+        <!-- Bill Items Table -->
+        <div class="bill-items wow animate__fadeInUp" data-wow-duration="1s" data-wow-delay="0.4s">
+            <h4 style="margin-bottom:10px;">Bill Details</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Utility</th>
+                        <th>Units</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in consumption_items %}
+                    <tr>
+                        <td>{{ item.utility }}</td>
+                        <td>{{ item.units }}</td>
+                        <td>₹{{ item.amount }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <button id="rzp-button" class="animate__animated animate__pulse animate__infinite wow" data-wow-duration="2s">
+            Pay Now
+        </button>
+    </div>
+</div>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+    new WOW().init();  // Initialize WOW.js animations
+
+    document.getElementById("rzp-button").onclick = function(e) {
+        e.preventDefault();
+
+        var options = {
+            "key": "{{ key_id }}",
+            "amount": {{ amount_paise }},
+            "currency": "INR",
+            "name": "{{ bill.resident_name or 'Community Management' }}",
+            "description": "Bill Payment - {{ bill.name }}",
+            "prefill": {
+                "name": "{{ bill.resident or '' }}",
+                "email": "{{ bill.email or '' }}",
+                "contact": "{{ bill.phone or '' }}"
+            },
+            "theme": { "color": "#3399cc" },
+            "handler": function(response){
+                frappe.call({
+                    method: "smart_community.smart_community.doctype.bill.bill.mark_bill_paid",
+                    args: {
+                        bill: "{{ bill.name }}",
+                        payment_id: response.razorpay_payment_id
+                    },
+                    callback: function(res){
+                        if(res.message){
+                            frappe.msgprint("✅ Payment Successful! Payment record has been created.");
+                            setTimeout(function(){
+                                window.location.href = "http://smart.localhost:8001";
+                            }, 2000);
+                        } else {
+                            frappe.msgprint("❌ Payment failed. Please try again.");
+                        }
+                    }
+                });
+            }
+        };
+
+        var rzp = new Razorpay(options);
+        rzp.open();
+    };
+</script>
+{% endblock %}

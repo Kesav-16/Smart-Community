@@ -1,0 +1,111 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:apartment_name",
+ "creation": "2025-09-11 17:24:59.338925",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_qeaf",
+  "lft",
+  "rgt",
+  "old_parent",
+  "parent_apartment_tree",
+  "column_break_bdbw",
+  "apartment_name",
+  "flat_number",
+  "resident",
+  "is_group"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_qeaf",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "lft",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": "Left",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "rgt",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": "Right",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "is_group",
+   "fieldtype": "Check",
+   "label": "Is Group"
+  },
+  {
+   "fieldname": "old_parent",
+   "fieldtype": "Link",
+   "label": "Old Parent",
+   "options": "Apartment Tree"
+  },
+  {
+   "fieldname": "parent_apartment_tree",
+   "fieldtype": "Link",
+   "ignore_user_permissions": 1,
+   "label": "Parent Apartment Tree",
+   "options": "Apartment Tree"
+  },
+  {
+   "fieldname": "column_break_bdbw",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "apartment_name",
+   "fieldtype": "Data",
+   "label": "Apartment Name",
+   "unique": 1
+  },
+  {
+   "fieldname": "flat_number",
+   "fieldtype": "Data",
+   "label": "Flat Number"
+  },
+  {
+   "fieldname": "resident",
+   "fieldtype": "Link",
+   "label": "Resident",
+   "options": "Resident"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_tree": 1,
+ "links": [],
+ "modified": "2025-09-12 11:18:03.100324",
+ "modified_by": "Administrator",
+ "module": "Smart Community",
+ "name": "Apartment Tree",
+ "naming_rule": "By fieldname",
+ "nsm_parent_field": "parent_apartment_tree",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
