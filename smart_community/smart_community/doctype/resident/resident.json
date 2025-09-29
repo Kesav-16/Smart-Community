@@ -13,6 +13,7 @@
   "column_break_cjdt",
   "flat_no",
   "email",
+  "apartment",
   "family_details_section",
   "family_members"
  ],
@@ -62,12 +63,18 @@
    "fieldname": "family_details_section",
    "fieldtype": "Section Break",
    "label": "Family Details"
+  },
+  {
+   "fieldname": "apartment",
+   "fieldtype": "Select",
+   "label": "Apartment",
+   "options": "\nGarden View 302\nLuxury Villa 201"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-09-11 19:23:37.256336",
+ "modified": "2025-09-25 12:20:15.599921",
  "modified_by": "Administrator",
  "module": "Smart Community",
  "name": "Resident",
@@ -89,8 +96,8 @@
  ],
  "quick_entry": 1,
  "row_format": "Dynamic",
- "sort_field": "modified",
- "sort_order": "DESC",
+ "sort_field": "full_name",
+ "sort_order": "ASC",
  "states": [],
  "track_changes": 1
 }

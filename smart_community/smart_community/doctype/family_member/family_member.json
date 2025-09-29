@@ -17,11 +17,13 @@
   {
    "fieldname": "name1",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Name"
   },
   {
    "fieldname": "relation",
    "fieldtype": "Select",
+   "in_list_view": 1,
    "label": "Relation",
    "options": "\nHusband\nWife\nBrother\nSister\nChild\nMother\nFather\nDaughter\nSon\nOthers"
   },
@@ -32,6 +34,7 @@
   {
    "fieldname": "age",
    "fieldtype": "Int",
+   "in_list_view": 1,
    "label": "Age"
   },
   {
@@ -44,7 +47,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-09-11 19:24:31.066319",
+ "modified": "2025-09-23 16:31:57.733816",
  "modified_by": "Administrator",
  "module": "Smart Community",
  "name": "Family Member",

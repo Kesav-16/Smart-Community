@@ -5,112 +5,192 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
 
 <style>
-    body {
-        background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* Wrapper & container */
+    .gpay-bill-wrapper {
+        background: linear-gradient(160deg, #e0f7fa, #f1f8e9);
+        font-family: 'Roboto', sans-serif;
+        padding: 60px 0;
     }
-    .container {
-        max-width: 900px;
-        margin: 20px auto;
-        padding: 0 15px;
+
+    .gpay-bill-wrapper .container {
+        max-width: 760px;
+        margin: 0 auto;
+        padding: 0 20px;
     }
-    .card {
-        padding: 25px;
-        border-radius: 15px;
-        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-        background: #ffffff;
+
+    /* Card */
+    .gpay-bill-wrapper .card {
+        background: #fff;
+        border-radius: 20px;
+        padding: 40px 30px;
+        position: relative;
+        box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+        overflow: hidden;
+        transition: transform 0.4s, box-shadow 0.4s;
     }
-    h2 {
+
+    .gpay-bill-wrapper .card::after {
+        content: '';
+        position: absolute;
+        top: -50px;
+        right: -50px;
+        width: 140px;
+        height: 140px;
+        background: linear-gradient(45deg, #1a73e8, #34a853);
+        border-radius: 50%;
+        opacity: 0.12;
+        z-index: 0;
+    }
+
+    .gpay-bill-wrapper .card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 18px 50px rgba(0,0,0,0.15);
+    }
+
+    /* Header */
+    .gpay-bill-wrapper h2 {
         text-align: center;
-        color: #007BFF;
-        margin-bottom: 20px;
-        font-weight: bold;
+        font-size: 32px;
+        font-weight: 700;
+        color: #1a1a1a;
+        margin-bottom: 30px;
+        z-index: 1;
+        position: relative;
     }
-    .bill-details p {
-        margin: 5px 0;
+
+    /* Bill details */
+    .gpay-bill-wrapper .bill-details {
+        margin-bottom: 30px;
+    }
+
+    .gpay-bill-wrapper .bill-details p {
         font-size: 16px;
+        margin: 10px 0;
+        padding-left: 14px;
+        border-left: 4px solid #1a73e8;
+        transition: all 0.3s;
+        color: #333;
+        font-weight: 500;
     }
-    .bill-items table {
+
+    .gpay-bill-wrapper .bill-details p:hover {
+        background: rgba(26,115,232,0.05);
+        border-left-width: 6px;
+    }
+
+    /* Table */
+    .gpay-bill-wrapper .bill-items table {
         width: 100%;
         border-collapse: collapse;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: inset 0 0 0 1px #d1d5db;
         margin-top: 15px;
     }
-    .bill-items th, .bill-items td {
-        padding: 10px;
-        border: 1px solid #ddd;
+
+    .gpay-bill-wrapper .bill-items th, 
+    .gpay-bill-wrapper .bill-items td {
+        padding: 14px;
         text-align: center;
         font-size: 15px;
+        transition: all 0.3s;
     }
-    .bill-items th {
-        background: #007BFF;
-        color: white;
+
+    .gpay-bill-wrapper .bill-items th {
+        background: #f1f3f4;
         font-weight: 600;
+        color: #1a1a1a;
     }
-    .bill-items tbody tr:nth-child(even) {
-        background: #f1f8ff;
+
+    .gpay-bill-wrapper .bill-items tbody tr:nth-child(even) {
+        background: #f8fafc;
     }
-    .bill-items tbody tr:hover {
-        background: #cce5ff;
-        transition: 0.3s;
+
+    .gpay-bill-wrapper .bill-items tbody tr:hover {
+        background: #e0f2fe;
+        transform: translateX(3px);
     }
-    #rzp-button {
+
+    /* Gradient header under table title */
+    .gpay-bill-wrapper .bill-items h4 {
+        font-weight: 600;
+        color: #1a1a1a;
+        margin-bottom: 15px;
+        position: relative;
+    }
+
+    .gpay-bill-wrapper .bill-items h4::after {
+        content: '';
         display: block;
-        margin: 25px auto 0 auto;
-        padding: 15px 35px;
-        background: linear-gradient(135deg, #007BFF, #00C6FF);
-        color: white;
-        border: none;
-        border-radius: 50px;
-        font-size: 18px;
-        cursor: pointer;
-        box-shadow: 0 6px 15px rgba(0,123,255,0.3);
-        transition: transform 0.2s, box-shadow 0.2s;
+        width: 60px;
+        height: 4px;
+        background: linear-gradient(90deg, #1a73e8, #34a853);
+        border-radius: 2px;
+        margin-top: 6px;
     }
-    #rzp-button:hover {
+
+    /* Pay button */
+    #gpay-rzp-button {
+        display: block;
+        width: 100%;
+        margin-top: 35px;
+        padding: 16px;
+        background: linear-gradient(90deg, #1a73e8, #34a853);
+        color: #fff;
+        font-size: 17px;
+        font-weight: 600;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    #gpay-rzp-button:hover {
         transform: scale(1.05);
-        box-shadow: 0 10px 20px rgba(0,123,255,0.4);
+        box-shadow: 0 8px 22px rgba(0,0,0,0.2);
     }
 </style>
 
-<div class="container">
-    <div class="card animate__animated animate__fadeInDown wow" data-wow-duration="1s" data-wow-delay="0.2s">
-        <h2>Pay Your Bill</h2>
-        
-        <div class="bill-details wow animate__fadeIn" data-wow-duration="1s" data-wow-delay="0.3s">
-            <p><strong>Bill Name:</strong> {{ bill.name }}</p>
-            <p><strong>Resident:</strong> {{ bill.resident or 'N/A' }}</p>
-            <p><strong>Total Amount:</strong> {{ frappe.format_value(bill.total_with_late , {"fieldtype": "Currency"}) }}</p>
-            <p><strong>Status:</strong> 
-                <span style="color:{{ 'green' if bill.status=='Paid' else 'red' }}">{{ bill.status }}</span>
-            </p>
-        </div>
+<div class="gpay-bill-wrapper">
+    <div class="container">
+        <div class="card animate__animated animate__fadeInUp wow" data-wow-duration="1s">
+            <h2 class="wow animate__fadeInDown" data-wow-delay="0.2s">💳 Pay Your Bill</h2>
 
-        <!-- Bill Items Table -->
-        <div class="bill-items wow animate__fadeInUp" data-wow-duration="1s" data-wow-delay="0.4s">
-            <h4 style="margin-bottom:10px;">Bill Details</h4>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Utility</th>
-                        <th>Units</th>
-                        <th>Amount</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for item in consumption_items %}
-                    <tr>
-                        <td>{{ item.utility }}</td>
-                        <td>{{ item.units }}</td>
-                        <td>₹{{ item.amount }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+            <div class="bill-details wow animate__fadeInLeft" data-wow-delay="0.4s">
+                <p><strong>Bill Name:</strong> {{ bill.name }}</p>
+                <p><strong>Resident:</strong> {{ bill.resident or 'N/A' }}</p>
+                <p><strong>Total Amount (with Due Fee) :</strong> {{ frappe.format_value(bill.total_with_late , {"fieldtype": "Currency"}) }}</p>
+                <p><strong>Status:</strong> 
+                    <span style="color:{{ 'green' if bill.status=='Paid' else 'red' }}">{{ bill.status }}</span>
+                </p>
+            </div>
 
-        <button id="rzp-button" class="animate__animated animate__pulse animate__infinite wow" data-wow-duration="2s">
-            Pay Now
-        </button>
+            <div class="bill-items wow animate__fadeInUp" data-wow-delay="0.6s">
+                <h4>📋 Bill Details</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Utility</th>
+                            <th>Amount (₹)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in consumption_items %}
+                        <tr>
+                            <td>{{ item.utility }}</td>
+                            <td>{{ frappe.format_value(item.amount, {"fieldtype": "Currency"}) }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    
+                    
+                </table>
+                  
+            </div>
+            <button id="gpay-rzp-button" class="wow animate__zoomIn" data-wow-delay="0.8s">
+                Pay Now
+            </button>
+        </div>
     </div>
 </div>
 
@@ -118,7 +198,7 @@
 <script>
     new WOW().init();  // Initialize WOW.js animations
 
-    document.getElementById("rzp-button").onclick = function(e) {
+    document.getElementById("gpay-rzp-button").onclick = function(e) {
         e.preventDefault();
 
         var options = {
@@ -132,7 +212,7 @@
                 "email": "{{ bill.email or '' }}",
                 "contact": "{{ bill.phone or '' }}"
             },
-            "theme": { "color": "#3399cc" },
+            "theme": { "color": "#1a73e8" },
             "handler": function(response){
                 frappe.call({
                     method: "smart_community.smart_community.doctype.bill.bill.mark_bill_paid",

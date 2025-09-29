@@ -21,7 +21,7 @@
  "list_columns": [],
  "login_required": 0,
  "max_attachment_size": 0,
- "modified": "2025-09-10 19:44:54.068088",
+ "modified": "2025-09-29 11:34:44.563593",
  "modified_by": "Administrator",
  "module": "Smart Community",
  "name": "maintenance-ticket",
@@ -31,9 +31,9 @@
  "show_attachments": 0,
  "show_list": 0,
  "show_sidebar": 0,
- "success_message": "<div style=\"text-align:center; font-family: Arial, sans-serif; color:#2c3e50; padding:20px;\">\n  <h2 style=\"color:#27ae60;\">Your form has been submitted successfully!</h2>\n  <p>We\u2019ve received your details and will get back to you shortly.</p>\n  <p>Meanwhile, you can return to the <a href=\"/home\" style=\"color:#2980b9; text-decoration:none; font-weight:bold;\">Home Page</a> or explore other sections of our site.</p>\n</div>\n",
+ "success_message": "<div style=\"text-align:center; font-family: Arial, sans-serif; color:#2c3e50; padding:20px;\">\n  <h2 style=\"color:#27ae60;\">Your form has been submitted successfully!</h2>\n  <p>We\u2019ve received your details and will get back to you shortly.</p>\n  <p>Meanwhile, you can return to the <a href=\"/\" style=\"color:#2980b9; text-decoration:none; font-weight:bold;\">Home Page</a> or explore other sections of our site.</p>\n</div>\n",
  "success_title": "Thank You! \ud83c\udf89",
- "success_url": "/home",
+ "success_url": "/",
  "title": "Maintenance Ticket",
  "web_form_fields": [
   {
@@ -47,7 +47,7 @@
    "options": "Resident",
    "precision": "",
    "read_only": 0,
-   "reqd": 0,
+   "reqd": 1,
    "show_in_filter": 0
   },
   {
@@ -58,10 +58,10 @@
    "label": "Issue Type",
    "max_length": 0,
    "max_value": 0,
-   "options": "\nPlumbing\nElectricity\nGeneral",
+   "options": "\nPlumbing\nElectricity\nGeneral\nOthers",
    "precision": "",
    "read_only": 0,
-   "reqd": 0,
+   "reqd": 1,
    "show_in_filter": 0
   },
   {
@@ -102,7 +102,7 @@
    "options": "User",
    "precision": "",
    "read_only": 0,
-   "reqd": 0,
+   "reqd": 1,
    "show_in_filter": 0
   },
   {

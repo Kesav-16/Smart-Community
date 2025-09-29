@@ -16,3 +16,18 @@ doc_events = {
 app_include_js = [
     "https://checkout.razorpay.com/v1/checkout.js"
 ]
+
+add_to_apps_screen = [
+    {
+        "name": "smart-community",  
+        "logo": "/assets/smart_community/img/kes_logo.png",  
+        "title": "Smart Community",  
+        "route": "/",  
+    },
+      {
+        "name": "About",  
+        "logo": "/assets/smart_community/img/kes_logo.png",  
+        "title": "About",  
+        "route": "/about",  
+    }
+]
