@@ -1,0 +1,191 @@
+{% extends "templates/web.html" %}
+
+{% block title %}Apartments{% endblock %}
+
+{% block navbar %}{% endblock %}
+
+{% block page_content %}
+<style>
+body {
+  background: #f6f8fb;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+}
+
+/* ===== Custom Navbar ===== */
+.custom-navbar {
+  width: 100%;
+  background: #2563eb;
+  color: white;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  padding: 12px 0;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+.custom-navbar a {
+  color: white;
+  text-decoration: none;
+  margin: 0 20px;
+  font-weight: 600;
+  transition: color 0.3s;
+}
+.custom-navbar a:hover {
+  color: #ffeb3b;
+}
+
+/* ===== Apartment Section ===== */
+.apartment-container {
+  max-width: 1100px;
+  margin: 50px auto;
+}
+
+.apartment-title {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 40px;
+}
+
+.apartment-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.apartment-card {
+  display: flex;
+  flex-wrap: wrap;
+  background: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.apartment-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+
+.apartment-card img {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  object-fit: cover;
+  flex: 1 1 50%;
+  transition: transform 0.3s ease;
+}
+
+.apartment-card:hover img {
+  transform: scale(1.05);
+}
+
+.apartment-info {
+  padding: 30px;
+  flex: 1 1 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.apartment-info h3 {
+  font-size: 1.8rem;
+  color: #34495e;
+  margin-bottom: 15px;
+}
+
+.apartment-info p {
+  color: #7f8c8d;
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+/* Zig-zag layout: even cards reverse flex direction */
+.apartment-card.even {
+  flex-direction: row-reverse;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .apartment-card, .apartment-card.even {
+    flex-direction: column;
+  }
+  .apartment-card img, .apartment-info {
+    flex: 1 1 100%;
+  }
+}
+</style>
+
+<!-- ===== Custom Navbar ===== -->
+<div class="custom-navbar">
+    <a href="http://smart.localhost:8001/apartments">Dashboard</a>
+    <a href="http://smart.localhost:8001/about">About</a>
+    <a href="http://smart.localhost:8001/maintenance-ticket/new">Raise Ticket</a>
+    <a href="http://smart.localhost:8001/login-apartment">Login</a>
+</div>
+
+<!-- ===== Apartment Grid ===== -->
+<div class="apartment-container">
+  <h1 class="apartment-title">Available Apartments</h1>
+  <div class="apartment-grid" id="apartmentGrid"></div>
+</div>
+
+<script>
+frappe.ready(function () {
+  const apartments = [
+    {
+      name: "Ocean View Apartment",
+      image: "https://www.shutterstock.com/image-photo/new-modern-block-flats-green-600nw-2437363335.jpg",
+      rent: "₹35,000/month",
+      location: "Chennai, Tamil Nadu",
+      description: "A modern sea-facing apartment with 2 bedrooms and balcony. Enjoy breathtaking ocean views and modern amenities."
+    },
+    {
+      name: "Skyline Residency",
+      image: "https://cdn.apartmentlist.com/image/fetch/c_fit,dpr_auto,f_auto,h_640,q_auto,w_640/https://images.ctfassets.net/jeox55pd4d8n/19QxcPxLaCYBiWoHdgRUvk/928d84b86e24192577ecb17790c1a903/apartment-complex-vs-buildng1.webp",
+      rent: "₹42,000/month",
+      location: "Bangalore, Karnataka",
+      description: "Luxurious 3BHK apartment in the heart of the city. Close to business centers, cafes, and parks."
+    },
+    {
+      name: "Garden View Flats",
+      image: "https://www.casagrand.co.in/wp-content/uploads/2023/05/Elevation-View-1-scaled.jpg?ver=1.211",
+      rent: "₹48,000/month",
+      location: "Coimbatore, Tamil Nadu",
+      description: "Peaceful environment surrounded by lush green gardens. Ideal for families seeking tranquility."
+    }
+  ];
+
+  const grid = document.getElementById("apartmentGrid");
+
+  apartments.forEach((apartment, index) => {
+    const card = document.createElement("div");
+    card.classList.add("apartment-card");
+    if(index % 2 !== 0) card.classList.add("even");
+
+    card.innerHTML = `
+      <img src="${apartment.image}" alt="${apartment.name}">
+      <div class="apartment-info">
+        <h3>${apartment.name}</h3>
+        <p><strong>Location:</strong> ${apartment.location}</p>
+        <p><strong>Rent:</strong> ${apartment.rent}</p>
+        <p>${apartment.description}</p>
+      </div>
+    `;
+
+    // Make entire card clickable
+    card.addEventListener("click", () => {
+      window.location.href = `/register-apartment?name=${encodeURIComponent(apartment.name)}`;
+    });
+
+    grid.appendChild(card);
+  });
+});
+</script>
+{% endblock %}

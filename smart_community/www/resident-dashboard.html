@@ -1,0 +1,42 @@
+{% extends "templates/web.html" %}
+{% block title %}Dashboard{% endblock %}
+
+{% block page_content %}
+<div class="container mt-4">
+    <h3>Welcome, {{ frappe.session.user_fullname }}</h3>
+    <div id="bookingList" class="mt-3"></div>
+</div>
+
+<script>
+frappe.ready(function() {
+    const bookingList = document.getElementById("bookingList");
+
+    frappe.call({
+        method: "frappe.client.get_list",
+        args: {
+            doctype: "Resident",
+            fields: ["apartment", "start_date", "end_date", "status"],
+            filters: { email: frappe.session.user },  // fetch only current user
+        },
+        callback: function(r) {
+            if (r.message.length === 0) {
+                bookingList.innerHTML = "<p>No bookings found.</p>";
+            } else {
+                let html = '';
+                r.message.forEach(b => {
+                    html += `
+                    <div class="card mb-2">
+                        <div class="card-body">
+                            <h5 class="card-title">${b.apartment}</h5>
+                            <p class="card-text">From: ${b.start_date} - To: ${b.end_date}</p>
+                            <p>Status: <strong>${b.status}</strong></p>
+                        </div>
+                    </div>`;
+                });
+                bookingList.innerHTML = html;
+            }
+        }
+    });
+});
+</script>
+{% endblock %}

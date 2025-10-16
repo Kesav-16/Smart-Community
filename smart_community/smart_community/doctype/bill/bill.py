@@ -1,6 +1,7 @@
 import frappe
 from frappe.model.document import Document
 from frappe.utils import nowdate
+import time
 
 try:
     import razorpay
@@ -9,21 +10,32 @@ except ImportError:
 
 
 class Bill(Document):
+
     def before_insert(self):
+        frappe.publish_realtime('bill_progress', {'percent': 10, 'message': 'Initializing bill creation...'}, user=frappe.session.user)
         if not self.items:
             self.populate_items()
+        frappe.publish_realtime('bill_progress', {'percent': 40, 'message': 'Items added successfully'}, user=frappe.session.user)
         self.calculate_total()
 
     def before_save(self):
+        frappe.publish_realtime('bill_progress', {'percent': 50, 'message': 'Validating and calculating totals...'}, user=frappe.session.user)
         self.calculate_total()
+        time.sleep(0.8)
+        frappe.publish_realtime('bill_progress', {'percent': 80, 'message': 'Finalizing details...'}, user=frappe.session.user)
+        time.sleep(0.5)
+        frappe.publish_realtime('bill_progress', {'percent': 100, 'message': 'Almost done...'}, user=frappe.session.user)
 
     def after_insert(self):
+        frappe.publish_realtime('bill_progress', {'percent': 100, 'message': 'Sending email notification...'}, user=frappe.session.user)
         self.send_bill_notification()
+        frappe.publish_realtime('bill_complete', {'message': f'Bill {self.name} saved and email sent successfully!'}, user=frappe.session.user)
 
     def populate_items(self):
         if self.items:
             return
 
+        frappe.publish_progress(20, title='Fetching Logs', description='Collecting consumption data...')
         logs = frappe.get_all(
             "Consumption Log",
             filters={"resident": self.resident},
@@ -37,6 +49,8 @@ class Bill(Document):
             item.units = log.units or 0
             item.rate = frappe.db.get_value("Utility", log.utility, "rate") or 0
             item.amount = (item.units or 0) * (item.rate or 0)
+
+        frappe.publish_progress(50, title='Populating Items', description='Items successfully fetched.')
 
     def calculate_total(self):
         total = 0.0
@@ -56,10 +70,9 @@ class Bill(Document):
             frappe.log_error(f"No email found for Resident {self.resident}", "Bill Notification")
             return
 
-        # Build table rows with alternating row colors
         table_rows = ""
         consumption_total = 0
-        row_color = ["#ffffff", "#f9f9f9"]  # alternating row colors
+        row_color = ["#ffffff", "#f9f9f9"]
         idx = 0
 
         for bill_row in self.items:
@@ -100,36 +113,33 @@ class Bill(Document):
         subject = f"Your Smart Community Bill: {self.name}"
 
         total_with_late = getattr(self, "total_with_late", self.total_amount or 0)
-        late_fee_amount = getattr(self,"late_fee_amount", 0)
+        late_fee_amount = getattr(self, "late_fee_amount", 0)
 
-        # Modern email HTML theme
         message = f"""
         <div style="font-family:Arial, sans-serif; background:#f0f4f8; padding:30px;">
             <div style="max-width:650px; margin:0 auto; background:white; border-radius:15px; overflow:hidden; box-shadow:0 8px 25px rgba(0,0,0,0.12);">
                 
-                <!-- Header -->
                 <div style="background:linear-gradient(135deg, #4a90e2, #50e3c2); color:white; padding:25px; text-align:center;">
                     <h1 style="margin:0; font-size:24px;">📄 Your Bill is Ready!</h1>
                     <p style="margin:5px 0 0; font-size:14px;">Smart Community Automated Billing</p>
                 </div>
 
-                <!-- Bill Info -->
                 <div style="padding:25px; color:#333;">
                     <p>Dear <b>{self.resident}</b>,</p>
                     <p>Your bill <b>{self.name}</b> has been generated.</p>
 
-                    <p><b>Total Amount (including late fee if any):</b> <span style="color:#1a73e8;">{frappe.format_value(total_with_late, {"fieldtype":"Currency"})}</span></p>
-                    <p><b>Late Fee Amount:</b> <span style="color:#e74c3c;">{frappe.format_value(late_fee_amount, {"fieldtype":"Currency"})}</span></p>
+                    <p><b>Total Amount (including late fee if any):</b> 
+                    <span style="color:#1a73e8;">{frappe.format_value(total_with_late, {"fieldtype":"Currency"})}</span></p>
+                    <p><b>Late Fee Amount:</b> 
+                    <span style="color:#e74c3c;">{frappe.format_value(late_fee_amount, {"fieldtype":"Currency"})}</span></p>
 
-                    <!-- Consumption Table -->
                     {table_html}
 
-                    <!-- Total Consumption -->
                     <p style="text-align:right; font-weight:bold; font-size:14px; margin-top:15px;">
-                        Consumption Log Total (without late fee): <span style="color:#34a853;">{frappe.format_value(consumption_total, {"fieldtype":"Currency"})}</span>
+                        Consumption Log Total (without late fee): 
+                        <span style="color:#34a853;">{frappe.format_value(consumption_total, {"fieldtype":"Currency"})}</span>
                     </p>
 
-                    <!-- Payment Button -->
                     <p style="text-align:center; margin:25px 0;">
                         <a href="{payment_url}" target="_blank" 
                             style="background:#50e3c2; color:white; padding:12px 30px; text-decoration:none; border-radius:10px; font-weight:bold; display:inline-block; box-shadow:0 4px 12px rgba(0,0,0,0.15);">
@@ -150,18 +160,11 @@ class Bill(Document):
             message=message,
             now=True
         )
-
         return {"status": "Sent"}
-
-
 
 
 @frappe.whitelist()
 def mark_bill_paid(bill, payment_id):
-    """
-    Mark the Bill as Paid, create a Payment record,
-    and auto-submit the Bill.
-    """
     try:
         bill_doc = frappe.get_doc("Bill", bill)
         bill_doc.status = "Paid"
@@ -193,8 +196,7 @@ def mark_bill_paid(bill, payment_id):
 def create_razorpay_order(bill):
     bill_doc = frappe.get_doc("Bill", bill)
     key_id = frappe.db.get_single_value("Razorpay Settings", "key_id")
-    key_secret = frappe.db.get_single_value("Razorpay Settings", "key_secret")
-    client = razorpay.Client(auth=(key_id, key_secret))
+    client = razorpay.Client(auth=(key_id))
 
     amount_paise = int(float(bill_doc.total_amount) * 100)
 

@@ -27,7 +27,6 @@ def get_context(context):
 
     context.consumption_items = consumption_items
 
-    # Razorpay settings
     context.key_id = "rzp_test_1DP5mmOlF5G5ag"  
     context.amount_paise = int(float(bill.total_with_late) * 100)
 

@@ -1,0 +1,173 @@
+{% extends "templates/web.html" %}
+
+{% block title %}Resident Registration{% endblock %}
+
+{% block page_content %}
+<style>
+body {
+    background: #f6f8fb;
+    font-family: 'Inter', sans-serif;
+}
+
+.form-container {
+    max-width: 700px;
+    margin: 40px auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.form-container h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #1e3a8a;
+}
+
+.form-group { margin-bottom: 15px; }
+label { font-weight: 600; color: #374151; }
+input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+}
+
+.utility-section {
+    background: #f9fafb;
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+.utility-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+}
+
+.submit-btn {
+    background: #2563eb;
+    color: white;
+    padding: 12px;
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    width: 100%;
+    cursor: pointer;
+}
+.submit-btn:hover {
+    background: #1e40af;
+}
+</style>
+
+<div class="form-container">
+    <h2>Resident Registration</h2>
+
+    <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" id="full_name" required>
+    </div>
+    <div class="form-group">
+        <label>Block</label>
+        <input type="text" id="block">
+    </div>
+    <div class="form-group">
+        <label>Phone</label>
+        <input type="text" id="phone">
+    </div>
+    <div class="form-group">
+        <label>Flat No</label>
+        <input type="text" id="flat_no">
+    </div>
+    <div class="form-group">
+        <label>Email</label>
+        <input type="email" id="email">
+    </div>
+    <div class="form-group">
+        <label>Apartment</label>
+        <input type="text" id="apartment">
+    </div>
+
+    <h3 style="color:#1e3a8a;margin-top:20px;">Select Utilities</h3>
+    <div id="utilityList" class="utility-section">
+        <p>Loading utilities...</p>
+    </div>
+
+    <button class="submit-btn" id="submitBtn">Submit</button>
+</div>
+
+<script>
+frappe.ready(function(){
+    // Fetch utility list from Price List Doctype
+    frappe.call({
+        method: "frappe.client.get_list",
+        args: {
+            doctype: "Price List",
+            fields: ["name", "provider", "utility_type", "rate"]
+        },
+        callback: function(r){
+            const container = document.getElementById("utilityList");
+            container.innerHTML = "";
+            if(r.message && r.message.length){
+                r.message.forEach(u => {
+                    const row = document.createElement("div");
+                    row.className = "utility-item";
+                    row.innerHTML = `
+                        <input type="checkbox" value="${u.name}" data-utility="${u.utility_type}" data-rate="${u.rate}">
+                        <label>${u.utility_type} - ₹${u.rate}/month (${u.provider})</label>
+                    `;
+                    container.appendChild(row);
+                });
+            } else {
+                container.innerHTML = "<p>No utilities available.</p>";
+            }
+        }
+    });
+
+    // Handle submission
+    document.getElementById("submitBtn").addEventListener("click", function(){
+        const full_name = document.getElementById("full_name").value;
+        const block = document.getElementById("block").value;
+        const phone = document.getElementById("phone").value;
+        const flat_no = document.getElementById("flat_no").value;
+        const email = document.getElementById("email").value;
+        const apartment = document.getElementById("apartment").value;
+
+        if(!full_name || !email || !phone){
+            frappe.msgprint("Please fill all required fields.");
+            return;
+        }
+
+        // Collect selected utilities
+        let selected = [];
+        document.querySelectorAll("#utilityList input[type='checkbox']:checked").forEach(cb => {
+            selected.push({
+                name: cb.value,
+                type: cb.dataset.utility,
+                rate: cb.dataset.rate
+            });
+        });
+
+        // Save data
+        frappe.call({
+            method: "frappe.client.insert",
+            args: {
+                doc: {
+                    doctype: "Resident Form",
+                    full_name, block, phone, flat_no, email, apartment,
+                    selected_utilities: JSON.stringify(selected)
+                }
+            },
+            callback: function(r){
+                if(r.message){
+                    frappe.msgprint("Resident Registered Successfully!");
+                    setTimeout(()=>{ window.location.href="/thank-you"; }, 1000);
+                }
+            }
+        });
+    });
+});
+</script>
+{% endblock %}

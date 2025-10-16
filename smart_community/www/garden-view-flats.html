@@ -1,0 +1,147 @@
+{% extends "templates/web.html" %}
+
+{% block title %}Garden View Flats{% endblock %}
+
+{% block navbar %}{% endblock %}
+
+{% block page_content %}
+<style>
+body {
+    background: #f6f8fb;
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+}
+
+/* Container */
+.container {
+    max-width: 1000px;
+    margin: 50px auto;
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+/* Image Gallery */
+.image-gallery { width: 100%; }
+.image-gallery .main-img { width: 100%; height: 400px; object-fit: cover; border-bottom: 2px solid #ddd; }
+.image-gallery .sub-images { display: flex; gap: 10px; margin-top: 10px; justify-content: center; }
+.image-gallery .sub-images img { width: 100px; height: 70px; object-fit: cover; cursor: pointer; border-radius: 10px; border: 2px solid transparent; transition: border 0.3s; }
+.image-gallery .sub-images img:hover { border: 2px solid #2563eb; }
+
+/* Apartment Content */
+.apartment-content { padding: 40px; }
+.apartment-content h2 { font-size: 2rem; color: #1e3a8a; margin-bottom: 15px; }
+.apartment-content p { font-size: 1.1rem; color: #34495e; margin-bottom: 15px; line-height: 1.6; }
+.apartment-content .rent { font-weight: bold; color: #27ae60; margin-bottom: 25px; font-size: 1.2rem; }
+
+/* Two-column wrapper for Facilities & Utilities */
+.facilities-utilities { display: flex; flex-wrap: wrap; gap: 30px; padding: 0 40px 40px 40px; }
+.features, .utilities { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 10px; }
+.feature-item, .utility-item { background: #e0f2fe; color: #1e3a8a; padding: 8px 15px; border-radius: 12px; font-weight: 600; font-size: 0.95rem; }
+.utility-item span { color: #2563eb; font-weight: 500; }
+
+/* Book Button */
+.book-btn {
+    background: #2563eb;
+    color: white;
+    padding: 15px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-align: center;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: background 0.3s;
+    display: inline-block;
+    width: fit-content;
+    margin: 0 40px 40px 40px;
+}
+.book-btn:hover { background: #1e40af; }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .facilities-utilities { flex-direction: column; padding: 0 20px 20px 20px; }
+    .book-btn { margin: 0 20px 20px 20px; }
+}
+</style>
+
+{% set apartment_name = "Garden View Flats" %}
+
+<div class="container">
+    <!-- Image Gallery -->
+    <div class="image-gallery">
+        <img id="mainImg" class="main-img" src="https://www.casagrand.co.in/wp-content/uploads/2023/05/Elevation-View-1-scaled.jpg?ver=1.211" alt="{{ apartment_name }}">
+        <div class="sub-images">
+            <img src="https://www.compass-pools.co.uk/wp-content/uploads/2020/02/fun-100-nova-navy-Winter-63-small.jpeg" alt="Swimming Pool">
+            <img src="https://www.ki.com/contentassets/f2b0756f67f44d3e9e4015af63394d74/neocon2023_showroom_jubilee_myplace_zoetry-copy.jpg" alt="Lounge">
+            <img src="https://img.fitimg.in/studio_profile_D516262F73D076.jpeg?format=webp&w=480&dpr=2.6" alt="Gym">
+            <img src="https://www.casagrand.co.in/wp-content/uploads/2023/05/Elevation-View-1-scaled.jpg?ver=1.211" alt="{{ apartment_name }}">
+        </div>
+    </div>
+
+    <!-- Apartment Content -->
+    <div class="apartment-content">
+        <h2 id="apartmentName">{{ apartment_name }}</h2>
+        <p>Coimbatore, Tamil Nadu</p>
+        <p class="rent">₹48,000/month</p>
+        <p>Peaceful environment with lush green gardens. Spacious 2BHK flats, modern interiors, and serene surroundings. Ideal for families seeking tranquility and quality living with all necessary amenities.</p>
+    </div>
+
+    <!-- Facilities & Utilities -->
+    <div class="facilities-utilities">
+        <div style="flex:1; min-width:250px;">
+            <h4 style="margin-bottom:10px;color:#1e3a8a;">Facilities</h4>
+            <div class="features">
+                <div class="feature-item">Electricity</div>
+                <div class="feature-item">Water</div>
+                <div class="feature-item">Wi-Fi</div>
+                <div class="feature-item">Gym</div>
+                <div class="feature-item">Swimming Pool</div>
+                <div class="feature-item">Garden/Park</div>
+                <div class="feature-item">24/7 Security</div>
+                <div class="feature-item">Parking</div>
+            </div>
+        </div>
+
+        <div style="flex:1; min-width:250px;">
+            <h4 style="margin-bottom:10px;color:#1e3a8a;">Available Utilities & Rates</h4>
+            <div class="utilities">
+                <div class="utility-item">🏷️ TNEB <span>– ₹8.00 / unit</span></div>
+                <div class="utility-item">💪 S2 Dream Gym <span>– ₹1,500 / month</span></div>
+                <div class="utility-item">🌐 Airtel <span>– ₹1,800 / month</span></div>
+                <div class="utility-item">🚰 City Water Supply <span>– ₹10 / liter</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Book Button -->
+    <a id="bookBtn" href="#" class="book-btn">Book Your Dream House</a>
+</div>
+
+<script>
+frappe.ready(function() {
+    const mainImg = document.getElementById('mainImg');
+    const subImages = document.querySelectorAll('.sub-images img');
+    const bookBtn = document.getElementById('bookBtn');
+    const apartmentName = encodeURIComponent(document.getElementById('apartmentName').innerText.trim());
+
+    // Change main image on sub-image click
+    subImages.forEach(img => {
+        img.addEventListener('click', function() {
+            mainImg.src = this.src;
+        });
+    });
+
+    // Redirect to registration page and then login
+    bookBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        // Redirect to registration page with apartment name
+        window.location.href = `/register-apartment?name=${apartmentName}`;
+        // Optional: redirect to login after 2 seconds
+        setTimeout(function() {
+            window.location.href = "/login-apartment";
+        }, 2000);
+    });
+});
+</script>
+{% endblock %}

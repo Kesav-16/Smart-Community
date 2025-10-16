@@ -1,0 +1,231 @@
+{% extends "templates/web.html" %}
+
+{% block title %}Register for Apartment{% endblock %}
+
+{% block page_content %}
+<style>
+/* ===== Body ===== */
+body {
+    background: #f0f4f8;
+    font-family: 'Inter', sans-serif;
+}
+
+.custom-navbar {
+  width: 100%;
+  background: #2563eb;
+  color: white;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  padding: 12px 0;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+.custom-navbar a {
+  color: white;
+  text-decoration: none;
+  margin: 0 20px;
+  font-weight: 600;
+  transition: color 0.3s;
+}
+.custom-navbar a:hover {
+  color: #ffeb3b;
+}
+
+
+/* ===== Registration Card ===== */
+.register-container {
+    max-width: 600px;
+    margin: 60px auto;
+    background: #fff;
+    border-radius: 20px;
+    padding: 40px 35px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+.register-container:hover {
+    transform: translateY(-5px);
+}
+
+/* Heading */
+.register-container h2 {
+    text-align: center;
+    margin-bottom: 10px;
+    color: #1e3a8a;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+#apartmentName {
+    text-align: center;
+    font-weight: 500;
+    margin-bottom: 25px;
+    color: #334155;
+    font-size: 1.1rem;
+}
+
+/* Inputs */
+.register-container input,
+.register-container textarea {
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 14px 18px;
+    border-radius: 10px;
+    border: 1px solid #cbd5e1;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+.register-container input:focus,
+.register-container textarea:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 12px rgba(37,99,235,0.2);
+    outline: none;
+}
+
+/* Password toggle */
+.password-wrapper {
+    position: relative;
+}
+.password-wrapper button {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 0.95rem;
+    color: #2563eb;
+    font-weight: 600;
+}
+.password-wrapper button:hover {
+    color: #1e40af;
+}
+
+/* Submit Button */
+.register-container button[type="submit"] {
+    background: linear-gradient(90deg,#2563eb,#1e40af);
+    color: #fff;
+    border: none;
+    padding: 14px;
+    border-radius: 12px;
+    width: 100%;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.register-container button[type="submit"]:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(37,99,235,0.3);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .register-container { padding: 30px 20px; }
+}
+</style>
+
+<div class="custom-navbar">
+    <a href="http://smart.localhost:8001/apartments">Dashboard</a>
+    <a href="http://smart.localhost:8001/about">About</a>
+        <a href="http://smart.localhost:8001/login-apartment">Login</a>
+</div>
+
+<div class="register-container">
+    <h2>Register for Apartment</h2>
+    <p id="apartmentName"></p>
+    <form id="registerForm">
+        <input type="text" placeholder="Your Full Name" required>
+        <input type="email" placeholder="Your Email" required>
+        <input type="tel" placeholder="Your Phone Number" required>
+
+        <div class="password-wrapper">
+            <input id="passwordInput" type="password" placeholder="Your Password" required autocomplete="new-password">
+            <button type="button" id="togglePassword">Show</button>
+        </div>
+
+        <textarea placeholder="Additional Message (Optional)" rows="4"></textarea>
+        <button type="submit">Register Now</button>
+    </form>
+</div>
+
+<script>
+frappe.ready(function () {
+    // Apartment name from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const apartmentName = urlParams.get("name") || "";
+    document.getElementById("apartmentName").innerText =
+        apartmentName ? `Selected Apartment: ${apartmentName}` : "";
+
+    // Password toggle
+    const passwordInput = document.getElementById("passwordInput");
+    const togglePassword = document.getElementById("togglePassword");
+    togglePassword.addEventListener("click", () => {
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            togglePassword.textContent = "Hide";
+        } else {
+            passwordInput.type = "password";
+            togglePassword.textContent = "Show";
+        }
+    });
+
+    // Form submission
+    document.getElementById("registerForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+        const inputs = e.target.elements;
+        const full_name = inputs[0].value.trim();
+        const email = inputs[1].value.trim();
+        const phone = inputs[2].value.trim();
+        const password = inputs[3].value.trim();
+        const message = inputs[4].value.trim();
+
+        if (!full_name || !email || !password) {
+            frappe.msgprint("Please fill all required fields.");
+            return;
+        }
+
+        frappe.call({
+            method: "smart_community.smart_community.api.register_apartment_user",
+            args: {
+                full_name: full_name,
+                email: email,
+                phone: phone,
+                apartment: apartmentName,
+                password: password
+            },
+            callback: function(r) {
+                if (r && r.message && r.message.status === "success") {
+                    // ✅ Show Thank you message
+                    frappe.msgprint({
+                        message: "Thank you! Registration successful.",
+                        title: "Success",
+                        indicator: "green"
+                    });
+
+                    e.target.reset();
+                    togglePassword.textContent = "Show";
+
+                    // ✅ Redirect after 2 seconds
+                        setTimeout(function() {
+                            window.location.href = "http://smart.localhost:8001/login-apartment";
+                        }, 2000);
+
+                } else {
+                    frappe.msgprint("Registration failed. Try again.");
+                }
+            },
+            error: function(err) {
+                frappe.msgprint("Server error. Try again.");
+            }
+        });
+    });
+
+    // Hide Desk Navbar for regular users
+    const deskNav = document.querySelector(".navbar, #navbarSupportedContent");
+    if(deskNav) deskNav.style.display = "none";
+});
+</script>
+{% endblock %}

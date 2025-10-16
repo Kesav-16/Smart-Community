@@ -1,0 +1,30 @@
+{
+ "add_total_row": 0,
+ "add_translate_data": 0,
+ "columns": [],
+ "creation": "2025-10-06 11:26:36.287461",
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "filters": [],
+ "idx": 0,
+ "is_standard": "Yes",
+ "letterhead": null,
+ "modified": "2025-10-06 11:50:12.245801",
+ "modified_by": "Administrator",
+ "module": "Smart Community",
+ "name": "Bill 01",
+ "owner": "Administrator",
+ "prepared_report": 0,
+ "query": "SELECT \r\n    b.resident AS \"Resident:Data:150\",\r\n    b.billing_month AS \"Billing Month:Data:120\",\r\n    b.billing_year AS \"Billing Year:Int:100\",\r\n    b.due_date AS \"Due Date:Date:120\",\r\n    b.custom_email AS \"Member Email:Data:200\",\r\n    b.status AS \"Status:Data:100\",\r\n    b.days_late AS \"Days Late:Int:100\",\r\n    b.late_fee_per_day AS \"Late Fee per Day:Currency:150\",\r\n    b.late_fee_amount AS \"Late Fee Amount:Currency:150\",\r\n    COALESCE(SUM(i.amount), 0) AS \"Consumption Amount:Currency:160\",\r\n    (COALESCE(SUM(i.amount), 0) + COALESCE(b.late_fee_amount, 0)) AS \"Total Amount with Late:Currency:160\"\r\nFROM `tabBill` b\r\nLEFT JOIN `tabBill Item` i ON i.parent = b.name\r\nGROUP BY b.name\r\nORDER BY b.billing_year DESC, b.billing_month DESC, b.resident ASC;\r\n",
+ "ref_doctype": "Bill",
+ "report_name": "Bill 01",
+ "report_script": "frappe.query_reports[\"Bill 01\"] = {\r\n    filters: [\r\n        {\r\n            fieldname: \"billing_month\",\r\n            label: \"Billing Month\",\r\n            fieldtype: \"Select\",\r\n            options: [\"\", \"January\", \"February\", \"March\", \"April\", \"May\", \"June\",\r\n                      \"July\", \"August\", \"September\", \"October\", \"November\", \"December\"]\r\n        },\r\n        {\r\n            fieldname: \"billing_year\",\r\n            label: \"Billing Year\",\r\n            fieldtype: \"Int\",\r\n            default: new Date().getFullYear()\r\n        },\r\n        {\r\n            fieldname: \"status\",\r\n            label: \"Status\",\r\n            fieldtype: \"Select\",\r\n            options: [\"\", \"Paid\", \"Unpaid\"]\r\n        }\r\n    ],\r\n\r\n    onload: function(report) {\r\n        frappe.msgprint({\r\n            title: __(\"Welcome\"),\r\n            message: __(\"Use filters to view bills.\"),\r\n            indicator: \"green\"\r\n        });\r\n    },\r\n\r\n    formatter: function(value, row, column, data, default_formatter) {\r\n        value = default_formatter(value, row, column, data);\r\n        if (column.fieldname === \"status\" && data.status === \"Unpaid\") {\r\n            value = `<span style=\"color:red; font-weight:bold;\">${value}</span>`;\r\n        } else if (column.fieldname === \"status\" && data.status === \"Paid\") {\r\n            value = `<span style=\"color:green; font-weight:bold;\">${value}</span>`;\r\n        }\r\n        return value;\r\n    }\r\n};\r\n",
+ "report_type": "Query Report",
+ "roles": [
+  {
+   "role": "System Manager"
+  }
+ ],
+ "timeout": 0
+}

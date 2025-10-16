@@ -1,0 +1,151 @@
+{% extends "templates/web.html" %}
+{% block title %}Bill Details{% endblock %}
+
+{% block page_content %}
+
+<!-- Navbar -->
+<div class="custom-navbar">
+  <div class="nav-left">
+    <a href="/guest-dashboard">Dashboard</a>
+    <a href="/about">About</a>
+    <a href="/monthly-bill">Monthly Bill</a>
+    <a href="/maintenance-ticket/new">Raise Ticket</a>
+  </div>
+  <div class="nav-right">
+    <a href="#" id="logoutBtn">Logout</a>
+  </div>
+</div>
+
+<div class="container mt-5">
+  <h4 class="mb-4 text-primary">📄 Bill Details</h4>
+  <div id="billDetailsContainer"></div>
+</div>
+
+<style>
+body { font-family: 'Inter', sans-serif; background: #f8fafc; }
+.custom-navbar {
+  width: 100%; background: #1e40af; color: white;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 15px 40px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  position: sticky; top: 0; z-index: 1000;
+}
+.custom-navbar a { color: white; text-decoration: none; font-weight: 600; margin: 0 15px; transition: color 0.3s; }
+.custom-navbar a:hover, .custom-navbar .active { color: #ffeb3b; }
+
+.bill-card {
+  background: #fff; padding: 20px; border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 15px;
+  transition: transform 0.3s;
+}
+.bill-card:hover { transform: translateY(-3px); }
+
+.toggle-section {
+  background: #e0f2fe;
+  border-radius: 8px;
+  padding: 10px 15px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+}
+.toggle-section:hover { background: #2563eb; color: white; }
+
+.bill-items { padding-left: 20px; }
+</style>
+
+<script>
+frappe.ready(function() {
+  const email = sessionStorage.getItem("guest_email");
+  if (!email) { window.location.href = "/guest-login"; return; }
+
+  const container = document.getElementById("billDetailsContainer");
+
+  frappe.call({
+    method: "smart_community.smart_community.api.get_guest_bills",
+    args: { email: email },
+    callback: function(r) {
+      const bills = r.message.bills || [];
+      if (bills.length === 0) {
+        container.innerHTML = `<p class="text-muted">No bills available.</p>`;
+        return;
+      }
+
+      // Group bills by month-year
+      const grouped = {};
+      bills.forEach(b => {
+        const label = `${b.billing_month} ${b.billing_year}`;
+        if (!grouped[label]) grouped[label] = [];
+        grouped[label].push(b);
+      });
+
+      let html = "";
+      Object.keys(grouped).forEach(monthLabel => {
+        html += `
+          <div class="toggle-section" data-target="${monthLabel.replace(/\s+/g, '_')}">
+            <span>📅 ${monthLabel}</span>
+            <span>&#9660;</span>
+          </div>
+          <div id="${monthLabel.replace(/\s+/g, '_')}" style="display:none;">
+            ${grouped[monthLabel].map(bill => {
+              let items = "";
+              if (bill.items && bill.items.length) {
+                items = "<ul class='bill-items'>";
+                bill.items.forEach(i => {
+                  items += `<li>${i.consumption_log}: ₹${i.amount}</li>`;
+                });
+                items += "</ul>";
+              }
+              return `
+                <div class="bill-card">
+                  <p><strong>Resident:</strong> ${bill.resident}</p>
+                  <p><strong>Billing Month:</strong> ${bill.billing_month} ${bill.billing_year}</p>
+                  <p><strong>Due Date:</strong> ${bill.due_date}</p>
+                  <p><strong>Status:</strong> <span style="color:${bill.status==="Paid"?"green":"red"}">${bill.status}</span></p>
+                  <p><strong>Days Late:</strong> ${bill.days_late || 0}</p>
+                  <p><strong>Late Fee:</strong> ₹${bill.late_fee_amount || 0}</p>
+                  <p><strong>Consumption:</strong> ${items}</p>
+                  <p><strong>Total:</strong> ₹${bill.total_with_late || bill.total_amount || 0}</p>
+                </div>`;
+            }).join('')}
+          </div>
+        `;
+      });
+
+      container.innerHTML = html;
+
+      // Toggle section click
+      document.querySelectorAll(".toggle-section").forEach(section => {
+        section.addEventListener("click", function() {
+          const target = document.getElementById(this.dataset.target);
+          const arrow = this.querySelector("span:last-child");
+          if (target.style.display === "none") {
+            target.style.display = "block";
+            arrow.innerHTML = "&#9650;";
+          } else {
+            target.style.display = "none";
+            arrow.innerHTML = "&#9660;";
+          }
+        });
+      });
+    }
+  });
+const deskNav = document.querySelector(".navbar, #navbarSupportedContent");
+    if (deskNav) deskNav.style.display = "none";
+  // Logout
+  document.getElementById("logoutBtn").addEventListener("click", e => {
+    e.preventDefault();
+    sessionStorage.removeItem("guest_email");
+    frappe.msgprint("Logged out");
+    window.location.href = "/guest-login";
+  });
+});
+
+document.getElementById("guestDashboardLink").addEventListener("click", e => { 
+    e.preventDefault(); 
+    window.location.href="/guest-dashboard"; 
+  });
+</script>
+
+{% endblock %}

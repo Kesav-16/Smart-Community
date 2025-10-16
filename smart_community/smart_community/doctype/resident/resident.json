@@ -10,10 +10,15 @@
   "full_name",
   "block",
   "phone",
+  "start_date",
+  "status",
   "column_break_cjdt",
   "flat_no",
   "email",
   "apartment",
+  "end_date",
+  "utility_section",
+  "utility",
   "family_details_section",
   "family_members"
  ],
@@ -68,13 +73,40 @@
    "fieldname": "apartment",
    "fieldtype": "Select",
    "label": "Apartment",
-   "options": "\nGarden View 302\nLuxury Villa 201"
+   "options": "\nSkyline Residency\nOcean View Apartment\nGarden View Flats"
+  },
+  {
+   "fieldname": "utility_section",
+   "fieldtype": "Section Break",
+   "label": "Utility"
+  },
+  {
+   "fieldname": "utility",
+   "fieldtype": "Table",
+   "label": "Utility",
+   "options": "Selected Utilities"
+  },
+  {
+   "fieldname": "start_date",
+   "fieldtype": "Date",
+   "label": "Start Date"
+  },
+  {
+   "fieldname": "end_date",
+   "fieldtype": "Date",
+   "label": "End Date"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Pending\nApproved\nRejected"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-09-25 12:20:15.599921",
+ "modified": "2025-10-13 19:25:39.128741",
  "modified_by": "Administrator",
  "module": "Smart Community",
  "name": "Resident",

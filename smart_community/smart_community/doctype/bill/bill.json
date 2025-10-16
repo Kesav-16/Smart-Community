@@ -39,6 +39,7 @@
    "default": "Unpaid",
    "fieldname": "status",
    "fieldtype": "Select",
+   "in_list_view": 1,
    "label": "Status",
    "options": "\nPaid\nUnpaid"
   },
@@ -130,7 +131,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-09-20 12:15:04.267759",
+ "modified": "2025-10-09 17:43:09.757312",
  "modified_by": "Administrator",
  "module": "Smart Community",
  "name": "Bill",

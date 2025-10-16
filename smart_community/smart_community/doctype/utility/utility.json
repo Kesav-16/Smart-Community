@@ -17,7 +17,7 @@
    "fieldname": "utility_type",
    "fieldtype": "Select",
    "label": "Utility Type",
-   "options": "\nWater\nElectricity\nInternet\nGym"
+   "options": "\nRent\nWater\nElectricity\nInternet\nGym\nHousekeeping\nLaundry"
   },
   {
    "allow_in_quick_entry": 1,
@@ -45,7 +45,7 @@
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-09-11 19:26:53.527578",
+ "modified": "2025-10-16 13:33:08.006855",
  "modified_by": "Administrator",
  "module": "Smart Community",
  "name": "Utility",

@@ -21,7 +21,7 @@
  "list_columns": [],
  "login_required": 0,
  "max_attachment_size": 0,
- "modified": "2025-09-29 11:34:44.563593",
+ "modified": "2025-10-14 15:59:19.741994",
  "modified_by": "Administrator",
  "module": "Smart Community",
  "name": "maintenance-ticket",
@@ -33,7 +33,7 @@
  "show_sidebar": 0,
  "success_message": "<div style=\"text-align:center; font-family: Arial, sans-serif; color:#2c3e50; padding:20px;\">\n  <h2 style=\"color:#27ae60;\">Your form has been submitted successfully!</h2>\n  <p>We\u2019ve received your details and will get back to you shortly.</p>\n  <p>Meanwhile, you can return to the <a href=\"/\" style=\"color:#2980b9; text-decoration:none; font-weight:bold;\">Home Page</a> or explore other sections of our site.</p>\n</div>\n",
  "success_title": "Thank You! \ud83c\udf89",
- "success_url": "/",
+ "success_url": "http://smart.localhost:8001/apartments-detail",
  "title": "Maintenance Ticket",
  "web_form_fields": [
   {

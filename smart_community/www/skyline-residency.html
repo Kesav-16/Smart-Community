@@ -1,0 +1,212 @@
+{% extends "templates/web.html" %}
+
+{% block title %}Skyline Residency{% endblock %}
+
+{% block navbar %}{% endblock %}
+
+{% block page_content %}
+<style>
+body {
+    background: #f6f8fb;
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+}
+
+/* Container */
+.container {
+    max-width: 1000px;
+    margin: 50px auto;
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+/* Image Gallery */
+.image-gallery {
+    width: 100%;
+}
+.image-gallery .main-img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-bottom: 2px solid #ddd;
+}
+.image-gallery .sub-images {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    justify-content: center;
+}
+.image-gallery .sub-images img {
+    width: 100px;
+    height: 70px;
+    object-fit: cover;
+    cursor: pointer;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    transition: border 0.3s;
+}
+.image-gallery .sub-images img:hover {
+    border: 2px solid #2563eb;
+}
+
+/* Apartment Content */
+.apartment-content {
+    padding: 40px;
+}
+
+.apartment-content h2 {
+    font-size: 2rem;
+    color: #1e3a8a;
+    margin-bottom: 15px;
+}
+
+.apartment-content p {
+    font-size: 1.1rem;
+    color: #34495e;
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.apartment-content .rent {
+    font-weight: bold;
+    color: #27ae60;
+    margin-bottom: 25px;
+    font-size: 1.2rem;
+}
+
+/* Two-column wrapper for Facilities & Utilities */
+.facilities-utilities {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    padding: 0 40px 40px 40px;
+}
+
+/* Features & Utilities */
+.features, .utilities {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+.feature-item, .utility-item {
+    background: #e0f2fe;
+    color: #1e3a8a;
+    padding: 8px 15px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+.utility-item span {
+    color: #2563eb;
+    font-weight: 500;
+}
+
+/* Book Button */
+.book-btn {
+    background: #2563eb;
+    color: white;
+    padding: 15px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-align: center;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: background 0.3s;
+    display: inline-block;
+    width: fit-content;
+    margin: 0 40px 40px 40px;
+}
+.book-btn:hover {
+    background: #1e40af;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .facilities-utilities { flex-direction: column; padding: 0 20px 20px 20px; }
+    .book-btn { margin: 0 20px 20px 20px; }
+}
+</style>
+
+{% set apartment_name = "Skyline Residency" %}
+
+<div class="container">
+    <!-- Image Gallery -->
+    <div class="image-gallery">
+        <img id="mainImg" class="main-img" src="https://cdn.apartmentlist.com/image/fetch/c_fit,dpr_auto,f_auto,h_640,q_auto,w_640/https://images.ctfassets.net/jeox55pd4d8n/19QxcPxLaCYBiWoHdgRUvk/928d84b86e24192577ecb17790c1a903/apartment-complex-vs-buildng1.webp" alt="{{ apartment_name }}">
+        <div class="sub-images">
+            <img src="https://explosivewhey.com/cdn/shop/articles/best-workout-routine-for-gym-beginners-135325.png?v=1738755379&width=2048" alt="Gym">
+            <img src="https://mrcrec.com/hs-fs/hubfs/Imported_Blog_Media/49717981617_b352f631a6_o.jpg" alt="Park">
+            <img src="https://www.frezza.com/wp-content/uploads/2024/07/arredamento-area-lounge-poltrone-divani-e-tavolini-caffe-frezza.jpg" alt="Lounge">
+            <img src="https://cdn.apartmentlist.com/image/fetch/c_fit,dpr_auto,f_auto,h_640,q_auto,w_640/https://images.ctfassets.net/jeox55pd4d8n/19QxcPxLaCYBiWoHdgRUvk/928d84b86e24192577ecb17790c1a903/apartment-complex-vs-buildng1.webp" alt="Swimming Pool">
+        </div>
+    </div>
+
+    <!-- Apartment Content -->
+    <div class="apartment-content">
+        <h2 id="apartmentName">{{ apartment_name }}</h2>
+        <p>Bangalore, Karnataka</p>
+        <p class="rent">₹42,000/month</p>
+        <p>Luxurious 3BHK apartment located in the heart of the city. Spacious interiors, modern amenities, and panoramic views for a premium living experience. Ideal for families and professionals.</p>
+    </div>
+
+    <!-- Facilities & Utilities -->
+    <div class="facilities-utilities">
+        <div style="flex:1; min-width:250px;">
+            <h4 style="margin-bottom:10px;color:#1e3a8a;">Facilities</h4>
+            <div class="features">
+                <div class="feature-item">Electricity</div>
+                <div class="feature-item">Water</div>
+                <div class="feature-item">Wi-Fi</div>
+                <div class="feature-item">Gym</div>
+                <div class="feature-item">Swimming Pool</div>
+                <div class="feature-item">Children Park</div>
+                <div class="feature-item">24/7 Security</div>
+                <div class="feature-item">Parking</div>
+            </div>
+        </div>
+
+        <div style="flex:1; min-width:250px;">
+            <h4 style="margin-bottom:10px;color:#1e3a8a;">Available Utilities & Rates</h4>
+            <div class="utilities">
+                <div class="utility-item">🏷️ TNEB <span>– ₹8.00 / unit</span></div>
+                <div class="utility-item">💪 S2 Dream Gym <span>– ₹1,500 / month</span></div>
+                <div class="utility-item">🌐 Airtel <span>– ₹1,800 / month</span></div>
+                <div class="utility-item">🚰 City Water Supply <span>– ₹10 / liter</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Book Button -->
+    <a id="bookBtn" href="#" class="book-btn">Book Your Dream House</a>
+</div>
+
+<script>
+frappe.ready(function() {
+    const mainImg = document.getElementById('mainImg');
+    const subImages = document.querySelectorAll('.sub-images img');
+    const bookBtn = document.getElementById('bookBtn');
+    const apartmentName = encodeURIComponent(document.getElementById('apartmentName').innerText.trim());
+
+    // Change main image on sub-image click
+    subImages.forEach(img => {
+        img.addEventListener('click', function() {
+            mainImg.src = this.src;
+        });
+    });
+
+    // Register & redirect flow
+    bookBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        // Step 1: Redirect to registration page
+        window.location.href = `/register-apartment?name=${apartmentName}`;
+        // After registration, redirect to login (handled on server-side or using setTimeout if needed)
+        setTimeout(function() {
+            window.location.href = "http://smart.localhost:8001/login-apartment";
+        }, 2000);
+    });
+});
+</script>
+{% endblock %}
