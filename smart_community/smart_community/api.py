@@ -5,27 +5,27 @@ from frappe.utils import nowdate
 import razorpay
 from frappe import _
 
-@frappe.whitelist(allow_guest=True)
-def register_apartment_user(full_name, email, phone, apartment, password):
-    """
-    Save user registration with plain password.
-    """
-    if not (full_name and email and password):
-        frappe.throw("Full Name, Email and Password are required.")
+    # @frappe.whitelist(allow_guest=True)
+    # def register_apartment_user(full_name, email, phone, apartment, password):
+    #     """
+    #     Save user registration with plain password.
+    #     """
+    #     if not (full_name and email and password):
+    #         frappe.throw("Full Name, Email and Password are required.")
 
-    doc = frappe.get_doc({
-        "doctype": "Apartment Registration",
-        "full_name": full_name,
-        "email": email,
-        "phone": phone,
-        "apartment": apartment,
-        "password": password,
-        "created_on": datetime.now()
-    })
-    doc.insert(ignore_permissions=True)
-    frappe.db.commit()
+    #     doc = frappe.get_doc({
+    #         "doctype": "Apartment Registration",
+    #         "full_name": full_name,
+    #         "email": email,
+    #         "phone": phone,
+    #         "apartment": apartment,
+    #         "password": password,
+    #         "created_on": datetime.now()
+    #     })
+    #     doc.insert(ignore_permissions=True)
+    #     frappe.db.commit()
 
-    return {"status": "success", "message": "Registered successfully!"}
+    #     return {"status": "success", "message": "Registered successfully!"}
 
 @frappe.whitelist(allow_guest=True)
 def login_apartment_user(email, password):
@@ -327,3 +327,29 @@ def mark_bill_paid(bill_name, payment_id):
     except Exception as e:
         frappe.log_error(message=str(e), title="Bill Payment Error")
         frappe.throw("Error recording payment. Check error log.")
+
+
+@frappe.whitelist(allow_guest=True)
+def get_apartment_summary():
+    """
+    Fetch data from Script Report 'Apartment Booking Summary'
+    and return it as JSON for the web page.
+    """
+    # Import the report’s execute() method
+    from your_app.your_app.report.apartment_booking_summary.apartment_booking_summary import execute
+
+    # Run the report without filters
+    columns, data = execute(filters=None)
+
+    # Convert to readable format
+    report_data = []
+    for row in data:
+        record = {}
+        for i, col in enumerate(columns):
+            record[col.get('label')] = row[i] if i < len(row) else None
+        report_data.append(record)
+
+    return {
+        "columns": [col.get('label') for col in columns],
+        "data": report_data
+    }      

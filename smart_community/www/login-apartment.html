@@ -4,33 +4,30 @@
 
 {% block page_content %}
 <style>
-body { background:#f0f4f8; font-family:'Inter',sans-serif; }
-.login-container {
-    max-width:400px; margin:100px auto; background:#fff; border-radius:20px; padding:40px;
-    box-shadow:0 10px 25px rgba(0,0,0,0.1);
+/* ===== General Page ===== */
+body {
+  background: #f0f4f8;
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
 }
-.login-container h2 { text-align:center; margin-bottom:30px; color:#1e3a8a; font-weight:700; }
-.login-container input {
-    width:100%; padding:12px 15px; margin-bottom:15px; border-radius:10px; border:1px solid #cbd5e1;
-}
-.login-container button {
-    width:100%; padding:12px; border-radius:10px; border:none; background:#2563eb; color:#fff; font-weight:600; cursor:pointer;
-}
-.login-container button:hover { background:#1e40af; }
 
+/* ===== Navbar ===== */
 .custom-navbar {
-  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;              /* Full viewport width */
   background: #2563eb;
   color: white;
   display: flex;
-  justify-content: right;
+  justify-content: flex-end;
   align-items: center;
-  padding: 12px 0;
+  padding: 12px 30px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  position: sticky;
-  top: 0;
   z-index: 1000;
 }
+
 .custom-navbar a {
   color: white;
   text-decoration: none;
@@ -38,59 +35,187 @@ body { background:#f0f4f8; font-family:'Inter',sans-serif; }
   font-weight: 600;
   transition: color 0.3s;
 }
+
 .custom-navbar a:hover {
   color: #ffeb3b;
 }
 
+
+/* ===== Responsive Navbar Toggle ===== */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.nav-toggle span {
+  background: white;
+  height: 3px;
+  width: 25px;
+  margin: 4px 0;
+  border-radius: 3px;
+}
+
+@media (max-width: 768px) {
+  .custom-navbar {
+    justify-content: space-between;
+    padding: 12px 20px;
+  }
+
+  .nav-toggle { display: flex; }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background: #2563eb;
+    position: absolute;
+    top: 70px;
+    left: 0;
+    text-align: center;
+    padding: 10px 0;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  }
+
+  .nav-links.active { display: flex; }
+
+  .nav-links a {
+    margin: 12px 0;
+    font-size: 1.1rem;
+  }
+}
+
+/* ===== Login Card ===== */
+.login-container {
+  max-width: 400px;
+  margin: 100px auto;
+  background: #fff;
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+.login-container h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #1e3a8a;
+  font-weight: 700;
+}
+
+.login-container input {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  border: 1px solid #cbd5e1;
+  font-size: 1rem;
+}
+
+.login-container button {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(90deg, #2563eb, #1e40af);
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.05rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.login-container button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(37,99,235,0.3);
+}
+
+/* ===== Responsive Login Container ===== */
+@media (max-width: 768px) {
+  .login-container {
+    margin: 60px 20px;
+    padding: 30px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-container {
+    margin: 40px 15px;
+    padding: 25px 15px;
+  }
+  .login-container h2 {
+    font-size: 1.4rem;
+  }
+}
 </style>
 
+<!-- ===== Navbar ===== -->
 <div class="custom-navbar">
-    <a href="http://smart.localhost:8001/apartments">Dashboard</a>
+  <div class="nav-toggle" id="navToggle">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  <div class="nav-links" id="navLinks">
+    <a href="http://smart.localhost:8001/apartments-detail">Dashboard</a>
     <a href="http://smart.localhost:8001/about">About</a>
     <a href="http://smart.localhost:8001/login-apartment">Login</a>
+  </div>
 </div>
 
+<!-- ===== Login Card ===== -->
 <div class="login-container">
-    <h2>User Login</h2>
-    <input type="email" id="email" placeholder="Your Email">
-    <input type="password" id="password" placeholder="Password">
-    <button id="loginBtn">Login</button>
+  <h2>User Login</h2>
+  <input type="email" id="email" placeholder="Your Email" required>
+  <input type="password" id="password" placeholder="Password" required>
+  <button id="loginBtn">Login</button>
 </div>
 
 <script>
 frappe.ready(function(){
-    const emailInput = document.getElementById("email");
-    const passwordInput = document.getElementById("password");
-    const loginBtn = document.getElementById("loginBtn");
+  // ✅ Toggle navbar for mobile
+  const navToggle = document.getElementById("navToggle");
+  const navLinks = document.getElementById("navLinks");
 
-    loginBtn.addEventListener("click", function(){
-        const email = emailInput.value.trim();
-        const password = passwordInput.value.trim();
+  navToggle.addEventListener("click", () => {
+    navLinks.classList.toggle("active");
+  });
 
-        if(!email || !password){
-            frappe.msgprint("Please enter email and password.");
-            return;
+  // ✅ Login logic
+  const emailInput = document.getElementById("email");
+  const passwordInput = document.getElementById("password");
+  const loginBtn = document.getElementById("loginBtn");
+
+  loginBtn.addEventListener("click", function(){
+    const email = emailInput.value.trim();
+    const password = passwordInput.value.trim();
+
+    if(!email || !password){
+      frappe.msgprint("Please enter email and password.");
+      return;
+    }
+
+    frappe.call({
+      method: "smart_community.smart_community.api.login_apartment_user",
+      args: { email: email, password: password },
+      callback: function(r){
+        if(r && r.message){
+          if(r.message.status === "success"){
+            frappe.msgprint(r.message.message);
+            setTimeout(() => { window.location.href = "/booking/new?apartment_name={{ apartment_name | urlencode }}"; }, 1500);
+          } else {
+            frappe.msgprint(r.message.message);
+          }
+        } else {
+          frappe.msgprint("Server error. Try again.");
         }
-
-        frappe.call({
-            method: "smart_community.smart_community.api.login_apartment_user",
-            args: { email: email, password: password },
-            callback: function(r){
-                if(r && r.message){
-                    if(r.message.status === "success"){
-                        frappe.msgprint(r.message.message);
-                        setTimeout(() => { window.location.href = "/booking/new?apartment_name={{ apartment_name | urlencode }}"; }, 1500);
-                    } else {
-                        frappe.msgprint(r.message.message);
-                    }
-                } else {
-                    frappe.msgprint("Server error. Try again.");
-                }
-            }
-        });
+      }
     });
-     const deskNav = document.querySelector(".navbar, #navbarSupportedContent");
-    if(deskNav) deskNav.style.display = "none";
+  });
+
+  // ✅ Hide Frappe Desk Navbar
+  const deskNav = document.querySelector(".navbar, #navbarSupportedContent");
+  if(deskNav) deskNav.style.display = "none";
 });
 </script>
 {% endblock %}

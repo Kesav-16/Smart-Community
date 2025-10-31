@@ -3,61 +3,177 @@
 {% block title %}Resident Login{% endblock %}
 
 {% block page_content %}
-<div class="container my-5" style="max-width: 400px;">
-    <h2 class="mb-4 text-center">Resident Login</h2>
+<style>
+/* ===== Body Styling ===== */
+body {
+  background: linear-gradient(135deg, #dbeafe, #93c5fd);
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* ===== Login Card ===== */
+.login-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 80px);
+  padding: 20px;
+}
+
+.login-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 40px 35px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 400px;
+  transition: all 0.3s ease;
+}
+
+.login-card:hover {
+  transform: translateY(-5px);
+}
+
+.login-card h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #1e3a8a;
+  font-weight: 700;
+}
+
+/* ===== Input Fields ===== */
+.login-card label {
+  font-weight: 600;
+  color: #334155;
+}
+
+.login-card input {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 15px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: border 0.3s ease;
+}
+
+.login-card input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 8px rgba(37,99,235,0.2);
+  outline: none;
+}
+
+/* ===== Button ===== */
+.login-card button {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(90deg, #2563eb, #1e40af);
+  border: none;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.login-card button:hover {
+  background: #1e3a8a;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(37,99,235,0.3);
+}
+
+/* ===== Message Box ===== */
+#loginMsg {
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+}
+
+/* ===== Responsive Adjustments ===== */
+@media (max-width: 480px) {
+  .login-card {
+    padding: 30px 20px;
+  }
+
+  .login-card h2 {
+    font-size: 1.5rem;
+  }
+
+  .login-card button {
+    font-size: 0.95rem;
+  }
+}
+</style>
+
+<!-- ===== Login Section ===== -->
+<div class="login-wrapper">
+  <div class="login-card">
+    <h2>Resident Login</h2>
     <div id="loginMsg"></div>
-    <div class="card p-4 shadow-sm">
-        <div class="mb-3">
-            <label>Email</label>
-            <input type="email" id="loginEmail" class="form-control" placeholder="Enter your email" required>
-        </div>
-        <div class="mb-3">
-            <label>Password</label>
-            <input type="password" id="loginPassword" class="form-control" placeholder="Enter your password" required>
-        </div>
-        <button id="loginBtn" class="btn btn-primary w-100">Login</button>
+
+    <div class="mb-3">
+      <label for="loginEmail">Email</label>
+      <input type="email" id="loginEmail" placeholder="Enter your email" required>
     </div>
+
+    <div class="mb-3">
+      <label for="loginPassword">Password</label>
+      <input type="password" id="loginPassword" placeholder="Enter your password" required>
+    </div>
+
+    <button id="loginBtn">Login</button>
+  </div>
 </div>
 
 <script>
 frappe.ready(function() {
-    const loginBtn = document.getElementById("loginBtn");
-    const loginMsg = document.getElementById("loginMsg");
-
-    loginBtn.addEventListener("click", function() {
-        const email = document.getElementById("loginEmail").value.trim();
-        const password = document.getElementById("loginPassword").value.trim();
-
-        if (!email || !password) {
-            loginMsg.innerHTML = "<p class='text-danger'>Please enter both email and password.</p>";
-            return;
-        }
-
-        loginMsg.innerHTML = "<p class='text-info'>Logging you in... Please wait</p>";
-
-        frappe.call({
-            method: "smart_community.smart_community.api.custom_login",
-            args: { email: email, password: password },
-            callback: function(r) {
-                if (r.message.status === "success") {
-                    // ✅ Set sessionStorage for guest dashboard
-                    sessionStorage.setItem("guest_email", r.message.email);
-
-                    loginMsg.innerHTML = "<p class='text-success'>Login successful! Redirecting...</p>";
-
-                    // ✅ Redirect to dashboard
-                    setTimeout(() => {
-                        window.location.href = "/guest-dashboard";
-                    }, 800);
-                } else {
-                    loginMsg.innerHTML = `<p class='text-danger'>${r.message.error}</p>`;
-                }
-            },
-            error: function() {
-                loginMsg.innerHTML = "<p class='text-danger'>Server error. Try again later.</p>";
-            }
-        });
+  // ✅ Navbar toggle for mobile
+  const navToggle = document.getElementById("navToggle");
+  const navLinks = document.getElementById("navLinks");
+  if (navToggle && navLinks) {
+    navToggle.addEventListener("click", () => {
+      navLinks.classList.toggle("active");
     });
+  }
+
+  // ✅ Login functionality
+  const loginBtn = document.getElementById("loginBtn");
+  const loginMsg = document.getElementById("loginMsg");
+
+  loginBtn.addEventListener("click", function() {
+    const email = document.getElementById("loginEmail").value.trim();
+    const password = document.getElementById("loginPassword").value.trim();
+
+    if (!email || !password) {
+      loginMsg.innerHTML = "<p class='text-danger'>Please enter both email and password.</p>";
+      return;
+    }
+
+    loginMsg.innerHTML = "<p class='text-info'>Logging you in... Please wait</p>";
+
+    frappe.call({
+      method: "smart_community.smart_community.api.custom_login",
+      args: { email: email, password: password },
+      callback: function(r) {
+        if (r.message.status === "success") {
+          sessionStorage.setItem("guest_email", r.message.email);
+          loginMsg.innerHTML = "<p class='text-success'>Login successful! Redirecting...</p>";
+          setTimeout(() => { window.location.href = "/guest-dashboard"; }, 800);
+        } else {
+          loginMsg.innerHTML = `<p class='text-danger'>${r.message.error}</p>`;
+        }
+      },
+      error: function() {
+        loginMsg.innerHTML = "<p class='text-danger'>Server error. Try again later.</p>";
+      }
+    });
+  });
+
+  // ✅ Hide Frappe Desk Navbar
+  const deskNav = document.querySelector(".navbar, #navbarSupportedContent");
+  if (deskNav) deskNav.style.display = "none";
 });
 </script>
 {% endblock %}

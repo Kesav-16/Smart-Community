@@ -1,0 +1,37 @@
+[
+ {
+  "apartment": null,
+  "block": "A",
+  "docstatus": 0,
+  "doctype": "Resident",
+  "email": "dhamo@gmail.com",
+  "enable": 1,
+  "end_date": null,
+  "family_members": [
+   {
+    "age": 67,
+    "name1": "Murugan",
+    "parent": "Dhamo",
+    "parentfield": "family_members",
+    "parenttype": "Resident",
+    "relation": "Father"
+   },
+   {
+    "age": 65,
+    "name1": "Mari",
+    "parent": "Dhamo",
+    "parentfield": "family_members",
+    "parenttype": "Resident",
+    "relation": "Mother"
+   }
+  ],
+  "flat_no": "2",
+  "full_name": "Dhamo",
+  "modified": "2025-10-30 15:11:29.427051",
+  "name": "Dhamo",
+  "phone": "9876543213",
+  "start_date": null,
+  "status": null,
+  "utility": []
+ }
+]

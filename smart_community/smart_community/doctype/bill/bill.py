@@ -62,12 +62,27 @@ class Bill(Document):
         self.total_amount = total
 
     def send_bill_notification(self):
-        if not self.resident:
+        frappe.enqueue(
+            method="_send_bill_notification_background",
+            queue='default',
+            job_name=f"send_bill_{self.name}",
+            timeout=300,
+            self_name=self.name
+        )
+    
+
+@frappe.whitelist()
+def send_bill_notification_background(self_name):
+    """Actual background job to send email notification."""
+    try:
+        bill = frappe.get_doc("Bill", self_name)
+
+        if not bill.resident:
             return
 
-        email = frappe.db.get_value("Resident", self.resident, "email")
+        email = frappe.db.get_value("Resident", bill.resident, "email")
         if not email:
-            frappe.log_error(f"No email found for Resident {self.resident}", "Bill Notification")
+            frappe.log_error(f"No email found for Resident {bill.resident}", "Bill Notification")
             return
 
         table_rows = ""
@@ -75,7 +90,7 @@ class Bill(Document):
         row_color = ["#ffffff", "#f9f9f9"]
         idx = 0
 
-        for bill_row in self.items:
+        for bill_row in bill.items:
             if bill_row.consumption_log:
                 log = frappe.get_doc("Consumption Log", bill_row.consumption_log)
                 if log and log.consumption_items:
@@ -109,11 +124,11 @@ class Bill(Document):
             </table>
         """
 
-        payment_url = f"{frappe.utils.get_url()}/pay_bill?bill_name={self.name}"
-        subject = f"Your Smart Community Bill: {self.name}"
+        payment_url = f"{frappe.utils.get_url()}/pay_bill?bill_name={bill.name}"
+        subject = f"Your Smart Community Bill: {bill.name}"
 
-        total_with_late = getattr(self, "total_with_late", self.total_amount or 0)
-        late_fee_amount = getattr(self, "late_fee_amount", 0)
+        total_with_late = getattr(bill, "total_with_late", bill.total_amount or 0)
+        late_fee_amount = getattr(bill, "late_fee_amount", 0)
 
         message = f"""
         <div style="font-family:Arial, sans-serif; background:#f0f4f8; padding:30px;">
@@ -125,8 +140,8 @@ class Bill(Document):
                 </div>
 
                 <div style="padding:25px; color:#333;">
-                    <p>Dear <b>{self.resident}</b>,</p>
-                    <p>Your bill <b>{self.name}</b> has been generated.</p>
+                    <p>Dear <b>{bill.resident}</b>,</p>
+                    <p>Your bill <b>{bill.name}</b> has been generated.</p>
 
                     <p><b>Total Amount (including late fee if any):</b> 
                     <span style="color:#1a73e8;">{frappe.format_value(total_with_late, {"fieldtype":"Currency"})}</span></p>
@@ -160,7 +175,11 @@ class Bill(Document):
             message=message,
             now=True
         )
-        return {"status": "Sent"}
+
+        frappe.logger().info(f"✅ Bill email sent for {bill.name} to {email}")
+
+    except Exception as e:
+        frappe.log_error(f"Error sending bill email for {self_name}: {str(e)}", "Bill Email Error")
 
 
 @frappe.whitelist()

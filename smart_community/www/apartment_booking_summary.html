@@ -1,0 +1,147 @@
+{% extends "templates/web.html" %}
+
+{% block title %}Apartment Registrations Summary{% endblock %}
+
+{% block page_content %}
+<style>
+  .summary-container {
+    max-width: 700px;
+    margin: 60px auto;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    padding: 30px;
+    font-family: "Inter", sans-serif;
+  }
+
+  h2 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 25px;
+    font-weight: 600;
+  }
+
+  #bookingChart {
+    display: block;
+    margin: 0 auto;
+    width: 240px !important;
+    height: 240px !important;
+  }
+
+  #loading {
+    text-align: center;
+    color: #888;
+    font-style: italic;
+  }
+
+  table {
+    margin-top: 30px;
+  }
+
+  .table thead {
+    background-color: #2c3e50;
+    color: #fff;
+  }
+
+  .table td {
+    vertical-align: middle;
+  }
+</style>
+
+<div class="summary-container">
+  <h2>🏢 Apartment Registrations Summary</h2>
+
+  <div id="chartWrapper" class="text-center">
+    <canvas id="bookingChart"></canvas>
+  </div>
+
+  <div id="loading" class="text-center text-muted mt-4">Loading summary...</div>
+
+  <table class="table table-striped d-none" id="summaryTable">
+    <thead>
+      <tr>
+        <th>Apartment</th>
+        <th>Total Registrations</th>
+      </tr>
+    </thead>
+    <tbody id="summaryBody"></tbody>
+  </table>
+</div>
+
+<!-- ✅ Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+frappe.ready(() => {
+  frappe.call({
+    method: "frappe.desk.query_report.run",
+    args: {
+      report_name: "Apartment Booking Summary",
+      filters: {},
+    },
+    callback: function (r) {
+      const data = r.message?.result || [];
+      const loading = document.getElementById("loading");
+      const table = document.getElementById("summaryTable");
+      const tbody = document.getElementById("summaryBody");
+
+      if (data.length === 0) {
+        loading.innerText = "No data found.";
+        return;
+      }
+
+      loading.classList.add("d-none");
+      table.classList.remove("d-none");
+      tbody.innerHTML = "";
+
+      const apartments = [];
+      const totals = [];
+
+      data.forEach(row => {
+        const apt = row["Apartment"] || row["apartment"];
+        const total = row["Total Registrations"] || row["total_registrations"] || 0;
+
+        apartments.push(apt);
+        totals.push(total);
+
+        const tr = document.createElement("tr");
+        tr.innerHTML = `<td>${apt}</td><td>${total}</td>`;
+        tbody.appendChild(tr);
+      });
+
+      // ✅ Donut Chart (smaller and on top)
+      const ctx = document.getElementById("bookingChart").getContext("2d");
+      new Chart(ctx, {
+        type: "doughnut",
+        data: {
+          labels: apartments,
+          datasets: [{
+            label: "Total Registrations",
+            data: totals,
+            backgroundColor: [
+              "#3498db", "#2ecc71", "#e67e22",
+              "#9b59b6", "#f1c40f", "#e74c3c"
+            ],
+            borderColor: "#fff",
+            borderWidth: 2,
+          }],
+        },
+        options: {
+          responsive: true,
+          cutout: "70%",
+          plugins: {
+            legend: {
+              position: "bottom",
+              labels: { boxWidth: 14, padding: 15 }
+            },
+            title: {
+              display: false
+            }
+          },
+        },
+      });
+    },
+  });
+});
+</script>
+{% endblock %}

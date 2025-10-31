@@ -3,7 +3,7 @@
  "allow_auto_repeat": 1,
  "allow_rename": 1,
  "autoname": "Bill-.###",
- "creation": "2025-09-04 17:24:28.744931",
+ "creation": "2025-10-10 16:58:31.034933",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
@@ -40,6 +40,7 @@
    "fieldname": "status",
    "fieldtype": "Select",
    "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Status",
    "options": "\nPaid\nUnpaid"
   },
@@ -72,11 +73,13 @@
    "label": "Late Fee per Day"
   },
   {
+   "depends_on": "due_date",
    "fieldname": "days_late",
    "fieldtype": "Int",
    "label": "Days Late"
   },
   {
+   "depends_on": "due_date",
    "fieldname": "late_fee_amount",
    "fieldtype": "Currency",
    "label": "Late Fee Amount"
@@ -84,7 +87,8 @@
   {
    "fieldname": "total_with_late",
    "fieldtype": "Currency",
-   "label": "Total Amount with Late"
+   "label": "Total Amount with Late",
+   "read_only": 1
   },
   {
    "fieldname": "section_break_ecmx",
@@ -131,7 +135,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-10-09 17:43:09.757312",
+ "modified": "2025-10-30 17:08:59.190872",
  "modified_by": "Administrator",
  "module": "Smart Community",
  "name": "Bill",
@@ -156,6 +160,17 @@
  "row_format": "Dynamic",
  "sort_field": "modified",
  "sort_order": "DESC",
- "states": [],
- "track_changes": 1
+ "states": [
+  {
+   "color": "Green",
+   "title": "Paid"
+  },
+  {
+   "color": "Red",
+   "title": "Unpaid"
+  }
+ ],
+ "track_changes": 1,
+ "track_seen": 1,
+ "track_views": 1
 }

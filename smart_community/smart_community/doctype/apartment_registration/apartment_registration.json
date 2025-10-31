@@ -1,7 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "field:full_name",
+ "autoname": "format:(fullname}-{apartment}",
  "creation": "2025-10-13 13:26:02.447488",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -54,11 +54,11 @@
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-10-13 15:31:43.979549",
+ "modified": "2025-10-29 15:55:58.664995",
  "modified_by": "Administrator",
  "module": "Smart Community",
  "name": "Apartment Registration",
- "naming_rule": "By fieldname",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {

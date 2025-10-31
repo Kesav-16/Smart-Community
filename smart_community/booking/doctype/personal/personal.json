@@ -1,0 +1,52 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-10-30 16:17:04.363783",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "full_name",
+  "age"
+ ],
+ "fields": [
+  {
+   "fieldname": "full_name",
+   "fieldtype": "Link",
+   "label": "Full Name",
+   "options": "Booking"
+  },
+  {
+   "fetch_from": "full_name.age",
+   "fieldname": "age",
+   "fieldtype": "Link",
+   "label": "Age",
+   "options": "Booking"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-10-30 16:20:58.935238",
+ "modified_by": "Administrator",
+ "module": "Booking",
+ "name": "Personal",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

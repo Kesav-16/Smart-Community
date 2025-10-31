@@ -34,23 +34,23 @@ add_to_apps_screen = [
 
 # "host_name": "http://127.0.0.1:8001",
 
-scheduler_events = {
-    "daily": [
-        "smart_community.smart_community.doctype.bill.bill_reminder.send_unpaid_bill_reminders"
-    ],
-    # Optional: for testing every 10 minutes (remove this in production)
-    "cron": {
-        "*/10 * * * *": [
-            "smart_community.smart_community.doctype.bill.bill_reminder.send_unpaid_bill_reminders"
-        ]
-    }
-}
-
 # scheduler_events = {
 #     "daily": [
 #         "smart_community.smart_community.doctype.bill.bill_reminder.send_unpaid_bill_reminders"
-#     ]
+#     ],
+#     # Optional: for testing every 10 minutes (remove this in production)
+#     "cron": {
+#         "*/10 * * * *": [
+#             "smart_community.smart_community.doctype.bill.bill_reminder.send_unpaid_bill_reminders"
+#         ]
+#     }
 # }
+
+scheduler_events = {
+    "daily": [
+        "smart_community.smart_community.doctype.bill.bill_reminder.send_unpaid_bill_reminders"
+    ]
+}
 
 doctype_js = {
     "Bill": "smart_community/smart_community/doctype/bill/bill_list.js"
@@ -58,4 +58,11 @@ doctype_js = {
 
 app_include_js = [
     "/assets/smart_community/js/maintenance_dashboard.js"
+]
+
+fixtures=[
+    {
+        "doctype": "Resident",
+        "filters": [["name", "in", ["Dhamo"]]]
+    }
 ]
