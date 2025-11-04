@@ -33,5 +33,152 @@
   "start_date": null,
   "status": null,
   "utility": []
+ },
+ {
+  "apartment": "Ocean View Apartment",
+  "block": "D",
+  "docstatus": 0,
+  "doctype": "Resident",
+  "email": "murugan@gmail.com",
+  "enable": 0,
+  "end_date": "2026-02-28",
+  "family_members": [
+   {
+    "age": 43,
+    "name1": "Kumar",
+    "parent": "Murugan R",
+    "parentfield": "family_members",
+    "parenttype": "Resident",
+    "relation": "Father"
+   }
+  ],
+  "flat_no": "D101",
+  "full_name": "Murugan R",
+  "modified": "2025-11-04 17:20:20.521431",
+  "name": "Murugan R",
+  "phone": "8521479632",
+  "start_date": "2025-11-01",
+  "status": "Approved",
+  "utility": [
+   {
+    "name1": null,
+    "parent": "Murugan R",
+    "parentfield": "utility",
+    "parenttype": "Resident",
+    "provider": null,
+    "rate": "Water Supply",
+    "utility_type": "Airtel (WIFI)"
+   },
+   {
+    "name1": null,
+    "parent": "Murugan R",
+    "parentfield": "utility",
+    "parenttype": "Resident",
+    "provider": null,
+    "rate": "Water Supply",
+    "utility_type": "TNEB"
+   },
+   {
+    "name1": null,
+    "parent": "Murugan R",
+    "parentfield": "utility",
+    "parenttype": "Resident",
+    "provider": null,
+    "rate": "Water Supply",
+    "utility_type": "Water Supply"
+   }
+  ]
+ },
+ {
+  "apartment": "Garden View Flats",
+  "block": null,
+  "docstatus": 0,
+  "doctype": "Resident",
+  "email": "sanjesh@gmail.com",
+  "enable": 0,
+  "end_date": "2026-01-31",
+  "family_members": [
+   {
+    "age": 45,
+    "name1": "Raju",
+    "parent": "Sanjesh",
+    "parentfield": "family_members",
+    "parenttype": "Resident",
+    "relation": "Father"
+   }
+  ],
+  "flat_no": null,
+  "full_name": "Sanjesh",
+  "modified": "2025-11-04 19:10:25.370326",
+  "name": "Sanjesh",
+  "phone": "9874563210",
+  "start_date": "2025-11-01",
+  "status": "Approved",
+  "utility": [
+   {
+    "name1": null,
+    "parent": "Sanjesh",
+    "parentfield": "utility",
+    "parenttype": "Resident",
+    "provider": null,
+    "rate": "Water Supply",
+    "utility_type": "Airtel (WIFI)"
+   },
+   {
+    "name1": null,
+    "parent": "Sanjesh",
+    "parentfield": "utility",
+    "parenttype": "Resident",
+    "provider": null,
+    "rate": "Water Supply",
+    "utility_type": "TNEB"
+   },
+   {
+    "name1": null,
+    "parent": "Sanjesh",
+    "parentfield": "utility",
+    "parenttype": "Resident",
+    "provider": null,
+    "rate": "Water Supply",
+    "utility_type": "Water Supply"
+   }
+  ]
+ },
+ {
+  "apartment": "Skyline Residency",
+  "block": "A",
+  "docstatus": 0,
+  "doctype": "Resident",
+  "email": "kesavan@gmail.com",
+  "enable": 0,
+  "end_date": null,
+  "family_members": [
+   {
+    "age": 56,
+    "name1": "Murugan",
+    "parent": "Kesavan",
+    "parentfield": "family_members",
+    "parenttype": "Resident",
+    "relation": "Father"
+   }
+  ],
+  "flat_no": "A101",
+  "full_name": "Kesavan",
+  "modified": "2025-11-04 17:20:20.178330",
+  "name": "Kesavan",
+  "phone": "7895412369",
+  "start_date": "2025-11-01",
+  "status": "Approved",
+  "utility": [
+   {
+    "name1": null,
+    "parent": "Kesavan",
+    "parentfield": "utility",
+    "parenttype": "Resident",
+    "provider": null,
+    "rate": null,
+    "utility_type": null
+   }
+  ]
  }
 ]

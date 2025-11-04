@@ -1,0 +1,226 @@
+{% extends "templates/web.html" %}
+
+{% block title %}About Us{% endblock %}
+
+{% block page_content %}
+<style>
+body {
+  background: #f6f8fb;
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* 🌐 Custom Navbar */
+.custom-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  background: #2563eb;
+  color: white;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 12px 30px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  z-index: 1000;
+}
+
+.custom-navbar a {
+  color: white;
+  text-decoration: none;
+  margin: 0 20px;
+  font-weight: 600;
+  transition: color 0.3s;
+}
+
+.custom-navbar a:hover {
+  color: #ffeb3b;
+}
+
+/* 📱 Responsive Navbar */
+.nav-toggle {
+  display: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .custom-navbar {
+    justify-content: space-between;
+  }
+
+  .nav-toggle {
+    display: block;
+  }
+
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background: #1e40af;
+    width: 60%;
+    text-align: center;
+    flex-direction: column;
+    border-top: 1px solid rgba(255,255,255,0.2);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+
+  .nav-links a {
+    display: block;
+    margin: 15px 0;
+    padding: 10px 0;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+}
+
+/* ✨ About Section */
+.about-container {
+  max-width: 1000px;
+  margin: 120px auto 50px;
+  background: #fff;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+.about-container img {
+  width: 100%;
+  border-radius: 12px;
+  margin-bottom: 30px;
+}
+
+.about-container h1 {
+  text-align: center;
+  color: #2c3e50;
+  font-size: 2.4rem;
+  margin-bottom: 20px;
+}
+
+.about-container p {
+  color: #555;
+  line-height: 1.7;
+  font-size: 1rem;
+  margin-bottom: 15px;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin: 30px 0;
+  text-align: center;
+}
+
+.stat {
+  margin: 15px;
+}
+
+.stat h3 {
+  color: #2563eb;
+  font-size: 1.8rem;
+  margin-bottom: 5px;
+}
+
+.stat p {
+  color: #444;
+  font-weight: 500;
+}
+
+/* Vision & Purpose */
+.section {
+  background: #f9fafb;
+  padding: 30px;
+  border-radius: 15px;
+  margin-bottom: 30px;
+}
+
+.section h2 {
+  color: #1e3a8a;
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+}
+
+.section p {
+  color: #555;
+  line-height: 1.6;
+}
+</style>
+
+<!-- 🌐 Navbar -->
+<nav class="custom-navbar">
+  <div class="nav-toggle" onclick="toggleMenu()">☰</div>
+  <div class="nav-links">
+    <a href="http://smart.localhost:8001/apartments-detail">Dashboard</a>
+    <a href="http://smart.localhost:8001/about">About</a>
+    <a href="http://smart.localhost:8001/login-apartment">Login</a>
+  </div>
+</nav>
+
+<!-- 🏠 About Content -->
+<div class="about-container">
+  <img src="https://www.casagrand.co.in/wp-content/uploads/2025/02/About-us-1.jpg" alt="About Smart Community">
+  <h1>About Smart Community</h1>
+  <p>
+    Established in 2023, <strong>Smart Community</strong> is a modern platform redefining apartment and community living. 
+    We bring together residents, management, and service providers in one seamless ecosystem designed for efficiency, 
+    transparency, and comfort.
+  </p>
+  <p>
+    With active operations across multiple cities, Smart Community is committed to innovation and quality. 
+    From maintenance management to resident engagement, we ensure every interaction within your community 
+    is easy, secure, and rewarding.
+  </p>
+
+  <div class="stats">
+    <div class="stat">
+      <h3>160+</h3>
+      <p>Active Communities</p>
+    </div>
+    <div class="stat">
+      <h3>55,000+</h3>
+      <p>Residents Connected</p>
+    </div>
+    <div class="stat">
+      <h3>53M+</h3>
+      <p>sq.ft Managed</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <img src="https://www.casagrand.co.in/wp-content/themes/casagrand2018/img/about-vision.jpg" alt="Vision" style="border-radius: 10px; width:100%; margin-bottom:15px;">
+    <h2>Our Vision</h2>
+    <p>
+      To create smarter, safer, and more connected communities that redefine urban living 
+      — ensuring peace, comfort, and a sense of belonging for every resident.
+    </p>
+  </div>
+
+  <div class="section">
+    <img src="https://www.casagrand.co.in/wp-content/themes/casagrand2018/img/about-purpose.jpg" alt="Purpose" style="border-radius: 10px; width:100%; margin-bottom:15px;">
+    <h2>Our Purpose</h2>
+    <p>✔ To serve society by building quality communities with transparency and care.</p>
+    <p>✔ To empower residents with technology-driven convenience.</p>
+    <p>✔ To provide rewarding careers and growth opportunities for our team.</p>
+    <p>✔ To continuously innovate and delight customers at every step.</p>
+  </div>
+</div>
+
+<script>
+function toggleMenu() {
+  document.querySelector('.nav-links').classList.toggle('active');
+}
+
+// Hide default Frappe web navbar
+frappe.ready(function() {
+  const deskNav = document.querySelector(".navbar, #navbarSupportedContent");
+  if (deskNav) deskNav.style.display = "none";
+});
+</script>
+{% endblock %}

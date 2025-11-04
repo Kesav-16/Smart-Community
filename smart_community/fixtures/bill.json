@@ -1,0 +1,164 @@
+[
+ {
+  "amended_from": null,
+  "auto_repeat": null,
+  "billing_month": "October",
+  "billing_year": 2025,
+  "custom_email": "kesavan@gmail.com",
+  "days_late": 5,
+  "docstatus": 1,
+  "doctype": "Bill",
+  "due_date": "2025-10-30",
+  "items": [
+   {
+    "amount": "8240",
+    "consumption_log": "Murugan Oct Bill",
+    "parent": "Bill-001",
+    "parentfield": "items",
+    "parenttype": "Bill"
+   }
+  ],
+  "late_fee_amount": 500.0,
+  "late_fee_per_day": 100.0,
+  "modified": "2025-11-04 16:52:53.441520",
+  "name": "Bill-001",
+  "resident": "Kesavan",
+  "status": "Paid",
+  "total_with_late": 8740.0
+ },
+ {
+  "amended_from": null,
+  "auto_repeat": null,
+  "billing_month": "October",
+  "billing_year": 2025,
+  "custom_email": "murugan@gmail.com",
+  "days_late": 5,
+  "docstatus": 1,
+  "doctype": "Bill",
+  "due_date": "2025-10-30",
+  "items": [
+   {
+    "amount": "8240",
+    "consumption_log": "Murugan Oct Bill",
+    "parent": "Bill-002",
+    "parentfield": "items",
+    "parenttype": "Bill"
+   }
+  ],
+  "late_fee_amount": 500.0,
+  "late_fee_per_day": 100.0,
+  "modified": "2025-11-04 15:16:09.808320",
+  "name": "Bill-002",
+  "resident": "Murugan R",
+  "status": "Paid",
+  "total_with_late": 8740.0
+ },
+ {
+  "amended_from": null,
+  "auto_repeat": null,
+  "billing_month": "September",
+  "billing_year": 2025,
+  "custom_email": "murugan@gmail.com",
+  "days_late": 5,
+  "docstatus": 1,
+  "doctype": "Bill",
+  "due_date": "2025-10-30",
+  "items": [
+   {
+    "amount": "8240",
+    "consumption_log": "Murugan Oct Bill",
+    "parent": "Bill-003",
+    "parentfield": "items",
+    "parenttype": "Bill"
+   }
+  ],
+  "late_fee_amount": 500.0,
+  "late_fee_per_day": 100.0,
+  "modified": "2025-11-04 17:00:26.272612",
+  "name": "Bill-003",
+  "resident": "Murugan R",
+  "status": "Paid",
+  "total_with_late": 8740.0
+ },
+ {
+  "amended_from": null,
+  "auto_repeat": null,
+  "billing_month": "September",
+  "billing_year": 2025,
+  "custom_email": "kesavan@gmail.com",
+  "days_late": 3,
+  "docstatus": 1,
+  "doctype": "Bill",
+  "due_date": "2025-11-01",
+  "items": [
+   {
+    "amount": "8240",
+    "consumption_log": "Murugan Oct Bill",
+    "parent": "Bill-004",
+    "parentfield": "items",
+    "parenttype": "Bill"
+   }
+  ],
+  "late_fee_amount": 450.0,
+  "late_fee_per_day": 150.0,
+  "modified": "2025-11-04 17:03:29.200969",
+  "name": "Bill-004",
+  "resident": "Kesavan",
+  "status": "Paid",
+  "total_with_late": 8690.0
+ },
+ {
+  "amended_from": null,
+  "auto_repeat": null,
+  "billing_month": "August",
+  "billing_year": 2025,
+  "custom_email": "murugan@gmail.com",
+  "days_late": 63,
+  "docstatus": 1,
+  "doctype": "Bill",
+  "due_date": "2025-09-02",
+  "items": [
+   {
+    "amount": "8240",
+    "consumption_log": "Murugan Oct Bill",
+    "parent": "Bill-005",
+    "parentfield": "items",
+    "parenttype": "Bill"
+   }
+  ],
+  "late_fee_amount": 3150.0,
+  "late_fee_per_day": 50.0,
+  "modified": "2025-11-04 17:07:41.844819",
+  "name": "Bill-005",
+  "resident": "Murugan R",
+  "status": "Paid",
+  "total_with_late": 11390.0
+ },
+ {
+  "amended_from": null,
+  "auto_repeat": null,
+  "billing_month": "October",
+  "billing_year": 2025,
+  "custom_email": "sanjesh@gmail.com",
+  "days_late": 3,
+  "docstatus": 1,
+  "doctype": "Bill",
+  "due_date": "2025-11-01",
+  "items": [
+   {
+    "amount": "4100",
+    "consumption_log": "Sanjesh Oct Bill",
+    "parent": "Bill-006",
+    "parentfield": "items",
+    "parenttype": "Bill"
+   }
+  ],
+  "late_fee_amount": 300.0,
+  "late_fee_per_day": 100.0,
+  "modified": "2025-11-04 19:13:42.511684",
+  "name": "Bill-006",
+  "resident": "Sanjesh",
+  "status": "Paid",
+  "total_with_late": 4400.0
+ }
+]

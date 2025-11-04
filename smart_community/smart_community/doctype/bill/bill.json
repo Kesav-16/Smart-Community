@@ -13,10 +13,10 @@
   "due_date",
   "column_break_snlf",
   "billing_year",
-  "late_fee_per_day",
   "status",
   "days_late",
   "late_fee_amount",
+  "late_fee_per_day",
   "section_break_ecmx",
   "consumption_details_column",
   "items",
@@ -87,8 +87,7 @@
   {
    "fieldname": "total_with_late",
    "fieldtype": "Currency",
-   "label": "Total Amount with Late",
-   "read_only": 1
+   "label": "Total Amount with Late"
   },
   {
    "fieldname": "section_break_ecmx",
@@ -135,7 +134,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-10-30 17:08:59.190872",
+ "modified": "2025-11-04 15:13:55.648387",
  "modified_by": "Administrator",
  "module": "Smart Community",
  "name": "Bill",

@@ -1,0 +1,29 @@
+[
+ {
+  "docstatus": 0,
+  "doctype": "Utility",
+  "modified": "2025-11-04 13:32:41.867586",
+  "name": "TNEB",
+  "provider": "TNEB",
+  "rate": 20.0,
+  "utility_type": "Electricity"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Utility",
+  "modified": "2025-11-04 13:33:05.976886",
+  "name": "Airtel (WIFI)",
+  "provider": "Airtel (WIFI)",
+  "rate": 1500.0,
+  "utility_type": "Internet"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Utility",
+  "modified": "2025-11-04 13:33:31.207324",
+  "name": "Water Supply",
+  "provider": "Water Supply",
+  "rate": 10.0,
+  "utility_type": "Water"
+ }
+]

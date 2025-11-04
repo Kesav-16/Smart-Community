@@ -1,0 +1,28 @@
+<div style="font-family: Arial, Helvetica, sans-serif; background-color:#f4f4f4; padding:25px;">
+  <div style="max-width:700px; margin:auto; background:#ffffff; border-radius:10px; box-shadow:0 4px 8px rgba(0,0,0,0.1); padding:30px;">
+    
+    <h2 style="text-align:center; color:#28a745;">💰 Payment Successful 🎉</h2>
+    <p style="font-size:15px; color:#555;">Dear <strong>{{ doc.resident }}</strong>,</p>
+    <p style="font-size:15px; color:#555;">
+      Thank you for your payment. Your bill has been successfully processed and marked as <strong>Paid</strong>.
+      Below is your detailed bill summary:
+    </p>
+
+    <!-- Bill Summary -->
+    <h3 style="color:#333; border-bottom:2px solid #28a745; padding-bottom:6px;">🧾 Bill Summary</h3>
+    <table style="width:100%; border-collapse:collapse; margin-bottom:20px;">
+      <tr><td><strong>Bill:</strong></td><td>{{ doc.name }}</td></tr>
+      <tr><td><strong>Resident:</strong></td><td>{{ doc.resident }}</td></tr>
+      <tr><td><strong>Billing Month:</strong></td><td>{{ doc.billing_month }}</td></tr>
+      <tr><td><strong>Billing Year:</strong></td><td>{{ doc.billing_year }}</td></tr>
+      <tr><td><strong>Total (with Late Fee):</strong></td><td>₹{{ doc.total_with_late }}</td></tr>
+      <tr><td><strong>Status:</strong></td><td style="color:green;"><b>{{ doc.status }}</b></td></tr>
+    </table>
+
+    <div style="margin-top:25px; text-align:center; color:#555;">
+      <p>For any queries or clarifications, please contact your apartment admin.</p>
+      <p>Thank you for your timely payment!</p>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,110 @@
+[
+ {
+  "apartment_name": "Block A",
+  "docstatus": 0,
+  "doctype": "Apartment Tree",
+  "flat_number": "101",
+  "is_group": 0,
+  "modified": "2025-11-04 18:52:20.153764",
+  "name": "Block A",
+  "old_parent": "Ocean View Apartment",
+  "parent_apartment_tree": "Ocean View Apartment",
+  "resident": ""
+ },
+ {
+  "apartment_name": "Block B",
+  "docstatus": 0,
+  "doctype": "Apartment Tree",
+  "flat_number": "201",
+  "is_group": 0,
+  "modified": "2025-11-04 18:50:36.915256",
+  "name": "Block B",
+  "old_parent": "Ocean View Apartment",
+  "parent_apartment_tree": "Ocean View Apartment",
+  "resident": null
+ },
+ {
+  "apartment_name": "Skyline Residency",
+  "docstatus": 0,
+  "doctype": "Apartment Tree",
+  "flat_number": null,
+  "is_group": 1,
+  "modified": "2025-11-04 18:51:29.665172",
+  "name": "Skyline Residency",
+  "old_parent": "",
+  "parent_apartment_tree": null,
+  "resident": null
+ },
+ {
+  "apartment_name": "Block c",
+  "docstatus": 0,
+  "doctype": "Apartment Tree",
+  "flat_number": "301",
+  "is_group": 0,
+  "modified": "2025-11-04 18:52:02.986983",
+  "name": "Block c",
+  "old_parent": "Skyline Residency",
+  "parent_apartment_tree": "Skyline Residency",
+  "resident": null
+ },
+ {
+  "apartment_name": "Block D",
+  "docstatus": 0,
+  "doctype": "Apartment Tree",
+  "flat_number": "211",
+  "is_group": 0,
+  "modified": "2025-11-04 18:52:54.968787",
+  "name": "Block D",
+  "old_parent": "Skyline Residency",
+  "parent_apartment_tree": "Skyline Residency",
+  "resident": null
+ },
+ {
+  "apartment_name": "Garden View Flats",
+  "docstatus": 0,
+  "doctype": "Apartment Tree",
+  "flat_number": null,
+  "is_group": 1,
+  "modified": "2025-11-04 18:53:19.386643",
+  "name": "Garden View Flats",
+  "old_parent": "",
+  "parent_apartment_tree": null,
+  "resident": null
+ },
+ {
+  "apartment_name": "Block E",
+  "docstatus": 0,
+  "doctype": "Apartment Tree",
+  "flat_number": "301",
+  "is_group": 0,
+  "modified": "2025-11-04 18:54:17.156148",
+  "name": "Block E",
+  "old_parent": "Garden View Flats",
+  "parent_apartment_tree": "Garden View Flats",
+  "resident": "Dhamo"
+ },
+ {
+  "apartment_name": "Block F",
+  "docstatus": 0,
+  "doctype": "Apartment Tree",
+  "flat_number": "401",
+  "is_group": 0,
+  "modified": "2025-11-04 18:53:57.220584",
+  "name": "Block F",
+  "old_parent": "Garden View Flats",
+  "parent_apartment_tree": "Garden View Flats",
+  "resident": null
+ },
+ {
+  "apartment_name": "Ocean View Apartment",
+  "docstatus": 0,
+  "doctype": "Apartment Tree",
+  "flat_number": "",
+  "is_group": 1,
+  "modified": "2025-11-04 18:48:16.848079",
+  "name": "Ocean View Apartment",
+  "old_parent": "",
+  "parent_apartment_tree": null,
+  "resident": ""
+ }
+]

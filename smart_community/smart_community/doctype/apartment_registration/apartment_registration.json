@@ -1,7 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "format:(fullname}-{apartment}",
+ "autoname": "AP-.###",
  "creation": "2025-10-13 13:26:02.447488",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -54,11 +54,11 @@
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-10-29 15:55:58.664995",
+ "modified": "2025-11-04 14:30:07.804375",
  "modified_by": "Administrator",
  "module": "Smart Community",
  "name": "Apartment Registration",
- "naming_rule": "Expression",
+ "naming_rule": "Expression (old style)",
  "owner": "Administrator",
  "permissions": [
   {

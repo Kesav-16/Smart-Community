@@ -1,0 +1,88 @@
+[
+ {
+  "consumption_items": [
+   {
+    "amount": 3000.0,
+    "parent": "Murugan Oct Bill",
+    "parentfield": "consumption_items",
+    "parenttype": "Consumption Log",
+    "rate": 1500.0,
+    "remarks": null,
+    "units": 2.0,
+    "utility": "Airtel (WIFI)"
+   },
+   {
+    "amount": 5000.0,
+    "parent": "Murugan Oct Bill",
+    "parentfield": "consumption_items",
+    "parenttype": "Consumption Log",
+    "rate": 20.0,
+    "remarks": null,
+    "units": 250.0,
+    "utility": "TNEB"
+   },
+   {
+    "amount": 240.0,
+    "parent": "Murugan Oct Bill",
+    "parentfield": "consumption_items",
+    "parenttype": "Consumption Log",
+    "rate": 10.0,
+    "remarks": null,
+    "units": 24.0,
+    "utility": "Water Supply"
+   }
+  ],
+  "date": "2025-11-04",
+  "docstatus": 0,
+  "doctype": "Consumption Log",
+  "modified": "2025-11-04 14:55:09.453948",
+  "month": "October",
+  "name": "Murugan Oct Bill",
+  "resident": "Murugan R",
+  "title": "Murugan Oct Bill",
+  "total_amount": "8240"
+ },
+ {
+  "consumption_items": [
+   {
+    "amount": 1500.0,
+    "parent": "Sanjesh Oct Bill",
+    "parentfield": "consumption_items",
+    "parenttype": "Consumption Log",
+    "rate": 1500.0,
+    "remarks": null,
+    "units": 1.0,
+    "utility": "Airtel (WIFI)"
+   },
+   {
+    "amount": 2400.0,
+    "parent": "Sanjesh Oct Bill",
+    "parentfield": "consumption_items",
+    "parenttype": "Consumption Log",
+    "rate": 20.0,
+    "remarks": null,
+    "units": 120.0,
+    "utility": "TNEB"
+   },
+   {
+    "amount": 200.0,
+    "parent": "Sanjesh Oct Bill",
+    "parentfield": "consumption_items",
+    "parenttype": "Consumption Log",
+    "rate": 10.0,
+    "remarks": null,
+    "units": 20.0,
+    "utility": "Water Supply"
+   }
+  ],
+  "date": "2025-11-04",
+  "docstatus": 0,
+  "doctype": "Consumption Log",
+  "modified": "2025-11-04 19:12:21.980609",
+  "month": "October",
+  "name": "Sanjesh Oct Bill",
+  "resident": "Sanjesh",
+  "title": "Sanjesh Oct Bill",
+  "total_amount": "4100"
+ }
+]

@@ -1,0 +1,74 @@
+[
+ {
+  "amount": 8740.0,
+  "bill": "Bill-002",
+  "date": "2025-11-04",
+  "docstatus": 0,
+  "doctype": "Payment",
+  "modified": "2025-11-04 15:16:09.913519",
+  "name": "Payment-01",
+  "payment_id": "pay_RbcOuDjOReto0T",
+  "payment_mode": "Razorpay",
+  "status": "Completed"
+ },
+ {
+  "amount": 8740.0,
+  "bill": "Bill-001",
+  "date": "2025-11-04",
+  "docstatus": 0,
+  "doctype": "Payment",
+  "modified": "2025-11-04 16:52:54.214028",
+  "name": "Payment-02",
+  "payment_id": "pay_Rbe35poPbjf0Lx",
+  "payment_mode": "Razorpay",
+  "status": "Completed"
+ },
+ {
+  "amount": 8740.0,
+  "bill": "Bill-003",
+  "date": "2025-11-04",
+  "docstatus": 0,
+  "doctype": "Payment",
+  "modified": "2025-11-04 17:00:26.650671",
+  "name": "Payment-03",
+  "payment_id": "pay_RbeB4QRCGIO3Q4",
+  "payment_mode": "Razorpay",
+  "status": "Completed"
+ },
+ {
+  "amount": 8690.0,
+  "bill": "Bill-004",
+  "date": "2025-11-04",
+  "docstatus": 0,
+  "doctype": "Payment",
+  "modified": "2025-11-04 17:03:29.572948",
+  "name": "Payment-04",
+  "payment_id": "pay_RbeEIIiVI2eISV",
+  "payment_mode": "Razorpay",
+  "status": "Completed"
+ },
+ {
+  "amount": 11390.0,
+  "bill": "Bill-005",
+  "date": "2025-11-04",
+  "docstatus": 0,
+  "doctype": "Payment",
+  "modified": "2025-11-04 17:07:42.112281",
+  "name": "Payment-05",
+  "payment_id": "pay_RbeIj7zZiCZgPV",
+  "payment_mode": "Razorpay",
+  "status": "Completed"
+ },
+ {
+  "amount": 4400.0,
+  "bill": "Bill-006",
+  "date": "2025-11-04",
+  "docstatus": 0,
+  "doctype": "Payment",
+  "modified": "2025-11-04 19:13:44.237149",
+  "name": "Payment-06",
+  "payment_id": "pay_RbgRpaOWvtL3D9",
+  "payment_mode": "Razorpay",
+  "status": "Completed"
+ }
+]

@@ -1,4 +1,3 @@
-# smart_community/smart_community/api.py
 import frappe
 from datetime import datetime
 from frappe.utils import nowdate
@@ -124,9 +123,10 @@ def register_apartment_user(full_name, email, phone, apartment, password):
             "send_welcome_email": 0,  # 🚫 No email
             "enabled": 1,
             "new_password": password
+            
         })
         # ✅ Assign the role "Guest 01"
-        user.append("roles", {"role": "Guest 01"})
+        user.append("roles", {"role": "Guest"})
         user.insert(ignore_permissions=True)
 
     # Commit all changes

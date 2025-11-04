@@ -63,6 +63,37 @@ app_include_js = [
 fixtures=[
     {
         "doctype": "Resident",
-        "filters": [["name", "in", ["Dhamo"]]]
-    }
+    },
+    { 
+        "doctype": "Utility",
+    },
+    {
+        "doctype": "Consumption Log",
+    },
+    {
+        "doctype": "Bill",
+    },
+    {
+        "doctype": "Maintenance Ticket",
+    },  
+    {
+        "doctype": "Payment",
+    },
+    {
+        "doctype": "Apartment Tree",
+    },
+    {
+        "doctype": "Razorpay Settings",
+    },
+    {
+        "doctype": "Web Page",
+    },
+    {        "doctype": "Client Script"  },
+    {        "doctype": "Notification"},
+    {       "doctype": "Email Account"  },
+    {       "doctype": "Print Format"  },
+    {       "doctype": "Web Form"  },
+    {      "doctype": "Role"  },
+    {     "doctype": "User"  },
+    
 ]
